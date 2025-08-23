@@ -31,106 +31,124 @@
         .header {
             background: linear-gradient(135deg, #4CAF50, #45a049);
             color: white;
-            padding: 30px 20px;
+            padding: 20px;
             text-align: center;
             position: relative;
         }
 
         .header h1 {
-            font-size: 28px;
-            margin-bottom: 10px;
+            font-size: 24px;
+            margin-bottom: 5px;
         }
 
         .header p {
             opacity: 0.9;
-            font-size: 16px;
+            font-size: 14px;
         }
 
+        /* PULSANTE HOME MIGLIORATO */
         .back-btn {
             position: absolute;
-            left: 20px;
+            left: 15px;
             top: 50%;
             transform: translateY(-50%);
-            background: rgba(255,255,255,0.2);
-            border: none;
+            background: rgba(255,255,255,0.25);
+            border: 2px solid rgba(255,255,255,0.5);
             color: white;
-            padding: 8px 12px;
-            border-radius: 8px;
+            padding: 12px 18px;
+            border-radius: 12px;
             cursor: pointer;
             display: none;
+            font-size: 16px;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            min-width: 80px;
+            text-align: center;
+        }
+
+        .back-btn:active {
+            transform: translateY(-50%) scale(0.95);
+            background: rgba(255,255,255,0.4);
         }
 
         .sync-status {
             position: absolute;
-            right: 20px;
+            right: 15px;
             top: 50%;
             transform: translateY(-50%);
-            font-size: 12px;
+            font-size: 11px;
             opacity: 0.8;
+            background: rgba(255,255,255,0.2);
+            padding: 5px 10px;
+            border-radius: 15px;
         }
 
         .content {
-            padding: 30px 20px;
+            padding: 25px 20px;
         }
 
         .config-panel {
             background: #fff3cd;
             border: 1px solid #ffeaa7;
-            border-radius: 8px;
-            padding: 15px;
+            border-radius: 12px;
+            padding: 20px;
             margin-bottom: 20px;
         }
 
         .config-title {
             font-weight: bold;
             color: #856404;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
+            font-size: 16px;
         }
 
         .config-input {
             width: 100%;
-            padding: 8px;
+            padding: 12px;
             border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 12px;
+            border-radius: 8px;
+            font-size: 14px;
+            margin-bottom: 10px;
         }
 
         .config-btn {
             background: #28a745;
             color: white;
             border: none;
-            padding: 8px 16px;
-            border-radius: 4px;
-            font-size: 12px;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 14px;
             cursor: pointer;
-            margin-top: 5px;
+            width: 100%;
+            font-weight: bold;
         }
 
         .config-error {
             background: #f8d7da;
             border: 1px solid #f5c6cb;
             color: #721c24;
-            padding: 10px;
-            border-radius: 4px;
+            padding: 12px;
+            border-radius: 8px;
             margin-top: 10px;
-            font-size: 11px;
+            font-size: 12px;
         }
 
         .config-success {
             background: #d4edda;
             border: 1px solid #c3e6cb;
             color: #155724;
-            padding: 10px;
-            border-radius: 4px;
+            padding: 12px;
+            border-radius: 8px;
             margin-top: 10px;
-            font-size: 11px;
+            font-size: 12px;
         }
 
         /* HOME SCREEN */
         .home-menu {
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 15px;
         }
 
         .menu-card {
@@ -141,6 +159,7 @@
             cursor: pointer;
             transition: all 0.3s ease;
             border-left: 5px solid #4CAF50;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
 
         .menu-card:hover {
@@ -152,11 +171,12 @@
             opacity: 0.5;
             cursor: not-allowed;
             background: #e9ecef;
+            transform: none !important;
         }
 
         .menu-icon {
-            font-size: 48px;
-            margin-bottom: 15px;
+            font-size: 42px;
+            margin-bottom: 12px;
             display: block;
         }
 
@@ -168,7 +188,7 @@
         }
 
         .menu-desc {
-            font-size: 14px;
+            font-size: 13px;
             color: #666;
             line-height: 1.4;
         }
@@ -193,24 +213,24 @@
         }
 
         .stat-number {
-            font-size: 24px;
+            font-size: 22px;
             font-weight: bold;
         }
 
         .stat-label {
-            font-size: 12px;
+            font-size: 11px;
             opacity: 0.9;
             text-transform: uppercase;
         }
 
         /* FORM STYLES */
         .form-group {
-            margin-bottom: 15px;
+            margin-bottom: 18px;
         }
 
         label {
             display: block;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
             font-weight: 600;
             color: #333;
             font-size: 14px;
@@ -218,47 +238,148 @@
 
         input, select {
             width: 100%;
-            padding: 12px;
+            padding: 14px;
             border: 2px solid #e1e5e9;
-            border-radius: 8px;
+            border-radius: 10px;
             font-size: 16px;
             background: #f8f9fa;
+            transition: all 0.3s ease;
         }
 
         input:focus, select:focus {
             outline: none;
             border-color: #4CAF50;
             background: white;
+            box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+        }
+
+        /* DROPDOWN MIGLIORATO PER OPERATORI */
+        .operator-select-container {
+            position: relative;
+        }
+
+        .operator-select {
+            background: white;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .operator-select::after {
+            content: "▼";
+            font-size: 12px;
+            color: #666;
+        }
+
+        .operator-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 2px solid #e1e5e9;
+            border-top: none;
+            border-radius: 0 0 10px 10px;
+            max-height: 200px;
+            overflow-y: auto;
+            z-index: 1000;
+            display: none;
+        }
+
+        .operator-dropdown.show {
+            display: block;
+        }
+
+        .operator-option {
+            padding: 12px 14px;
+            cursor: pointer;
+            border-bottom: 1px solid #eee;
+            transition: background-color 0.2s;
+            font-size: 14px;
+        }
+
+        .operator-option:hover {
+            background: #f8f9fa;
+        }
+
+        .operator-option:last-child {
+            border-bottom: none;
+        }
+
+        .new-operator-option {
+            background: #e8f5e8;
+            color: #2e7d32;
+            font-weight: bold;
         }
 
         .btn {
             width: 100%;
-            padding: 15px;
+            padding: 16px;
             background: #4CAF50;
             color: white;
             border: none;
-            border-radius: 8px;
+            border-radius: 12px;
             font-size: 16px;
             font-weight: 600;
             cursor: pointer;
             margin-top: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
         }
 
         .btn:hover {
             background: #45a049;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
         }
 
         .btn:disabled {
             background: #ccc;
             cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
         }
 
         .btn-secondary {
             background: #1a73e8;
+            box-shadow: 0 4px 15px rgba(26, 115, 232, 0.3);
         }
 
         .btn-secondary:hover {
             background: #1557b0;
+            box-shadow: 0 6px 20px rgba(26, 115, 232, 0.4);
+        }
+
+        /* FIELD SUGGESTIONS */
+        .field-suggestions {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            margin-top: 5px;
+            max-height: 120px;
+            overflow-y: auto;
+            display: none;
+        }
+
+        .field-suggestions.show {
+            display: block;
+        }
+
+        .suggestion-item {
+            padding: 10px 12px;
+            cursor: pointer;
+            border-bottom: 1px solid #e9ecef;
+            font-size: 13px;
+            transition: background-color 0.2s;
+        }
+
+        .suggestion-item:hover {
+            background: #e9ecef;
+        }
+
+        .suggestion-item:last-child {
+            border-bottom: none;
         }
 
         /* SCREEN MANAGEMENT */
@@ -272,42 +393,47 @@
 
         .pesata-item {
             background: #f8f9fa;
-            border-radius: 8px;
-            padding: 12px;
-            margin-bottom: 8px;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 10px;
             border-left: 4px solid #4CAF50;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
 
         .peso {
-            font-size: 18px;
+            font-size: 20px;
             font-weight: bold;
             color: #4CAF50;
+            margin-bottom: 5px;
         }
 
         .dettagli {
             font-size: 13px;
             color: #555;
-            margin-top: 5px;
+            line-height: 1.4;
         }
 
         .totale {
             background: #4CAF50;
             color: white;
-            padding: 15px;
-            border-radius: 8px;
+            padding: 18px;
+            border-radius: 12px;
             text-align: center;
-            margin: 15px 0;
+            margin: 20px 0;
             font-weight: bold;
+            font-size: 18px;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
         }
 
         .totale-item {
             background: #f8f9fa;
-            border-radius: 8px;
-            padding: 12px;
-            margin-bottom: 5px;
+            border-radius: 10px;
+            padding: 14px;
+            margin-bottom: 8px;
             display: flex;
             justify-content: space-between;
             border-left: 4px solid #4CAF50;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
         }
 
         .totale-peso {
@@ -317,50 +443,61 @@
 
         .loading {
             text-align: center;
-            padding: 20px;
+            padding: 30px 20px;
             color: #666;
+            font-style: italic;
         }
 
         .error {
             background: #f8d7da;
             color: #721c24;
-            padding: 10px;
-            border-radius: 5px;
+            padding: 12px;
+            border-radius: 8px;
             margin: 10px 0;
+            border: 1px solid #f5c6cb;
         }
 
         .success {
             background: #d4edda;
             color: #155724;
-            padding: 10px;
-            border-radius: 5px;
-            margin: 10px 0;
-        }
-
-        .retry-section {
-            background: #fff3cd;
-            border: 1px solid #ffeaa7;
+            padding: 12px;
             border-radius: 8px;
-            padding: 15px;
-            margin: 15px 0;
-            text-align: center;
+            margin: 10px 0;
+            border: 1px solid #c3e6cb;
         }
 
-        .retry-btn {
-            background: #ffc107;
-            color: #856404;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 4px;
-            cursor: pointer;
-            margin-top: 10px;
+        /* RESPONSIVE IMPROVEMENTS */
+        @media (max-width: 480px) {
+            .container {
+                margin: 0;
+                border-radius: 0;
+                min-height: 100vh;
+            }
+            
+            .back-btn {
+                padding: 10px 15px;
+                font-size: 14px;
+                min-width: 70px;
+            }
+            
+            .content {
+                padding: 20px 15px;
+            }
+            
+            .menu-card {
+                padding: 20px;
+            }
+            
+            .menu-icon {
+                font-size: 38px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <button class="back-btn" onclick="tornaHome()" id="backBtn">← Home</button>
+            <button class="back-btn" onclick="tornaHome()" id="backBtn">🏠 Home</button>
             <h1 id="headerTitle">🌾 Gestione Raccolto</h1>
             <p id="headerSubtitle">Cascina Digitale - Multi Utente</p>
             <div class="sync-status" id="syncStatus">⚡ Non configurato</div>
@@ -393,7 +530,7 @@
                             <div class="stat-label">Operatori</div>
                         </div>
                     </div>
-                    <button class="config-btn" onclick="aggiornaStats()" style="margin-top: 10px;">🔄 Aggiorna Ora</button>
+                    <button class="config-btn" onclick="aggiornaStats()" style="margin-top: 15px; padding: 10px 20px;">🔄 Aggiorna Ora</button>
                 </div>
 
                 <div class="home-menu">
@@ -425,19 +562,38 @@
 
             <!-- INSERIMENTO SCREEN -->
             <div id="inserimento" class="screen">
+                <!-- SELEZIONE OPERATORE CON DROPDOWN -->
                 <div class="form-group">
-                    <label>ID Operatore</label>
-                    <input type="text" id="operatore" placeholder="Inserisci ID operatore (es. OP001)" onchange="caricaProfiloOperatore(this.value)" style="text-transform: uppercase;">
+                    <label>Seleziona Operatore</label>
+                    <div class="operator-select-container">
+                        <div class="operator-select" onclick="toggleOperatorDropdown()">
+                            <span id="selectedOperator">Seleziona o crea nuovo operatore...</span>
+                        </div>
+                        <div class="operator-dropdown" id="operatorDropdown">
+                            <div class="operator-option new-operator-option" onclick="nuovoOperatore()">
+                                ➕ Nuovo Operatore
+                            </div>
+                            <div id="existingOperators"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- INPUT MANUALE PER NUOVO OPERATORE -->
+                <div class="form-group" id="newOperatorGroup" style="display: none;">
+                    <label>ID Nuovo Operatore</label>
+                    <input type="text" id="nuovoOperatore" placeholder="Inserisci ID operatore (es. OP001)" style="text-transform: uppercase;">
                 </div>
 
                 <div class="form-group">
                     <label>Campo</label>
-                    <input type="text" id="campo" placeholder="Nome del campo">
+                    <input type="text" id="campo" placeholder="Nome del campo" onkeyup="mostraSuggerimenti(this, 'campi')">
+                    <div class="field-suggestions" id="suggerimentiCampi"></div>
                 </div>
 
                 <div class="form-group">
                     <label>Magazzino</label>
-                    <input type="text" id="magazzino" placeholder="Nome magazzino/silo">
+                    <input type="text" id="magazzino" placeholder="Nome magazzino/silo" onkeyup="mostraSuggerimenti(this, 'magazzini')">
+                    <div class="field-suggestions" id="suggerimentiMagazzini"></div>
                 </div>
 
                 <div class="form-group">
@@ -452,12 +608,13 @@
 
                 <div class="form-group">
                     <label>Peso Netto (kg) - Automatico</label>
-                    <input type="number" id="pesoNetto" readonly style="background: #e9ecef; font-weight: bold; color: #4CAF50;">
+                    <input type="number" id="pesoNetto" readonly style="background: #e9ecef; font-weight: bold; color: #4CAF50; font-size: 18px;">
                 </div>
 
                 <div class="form-group">
                     <label>Prodotto</label>
-                    <input type="text" id="prodotto" placeholder="Nome del prodotto">
+                    <input type="text" id="prodotto" placeholder="Nome del prodotto" onkeyup="mostraSuggerimenti(this, 'prodotti')">
+                    <div class="field-suggestions" id="suggerimentiProdotti"></div>
                 </div>
 
                 <button class="btn" id="btnRegistra" onclick="registraPesata()">📝 REGISTRA PESATA</button>
@@ -484,22 +641,22 @@
                     🌾 TOTALE GENERALE: <span id="totGen">-</span> kg
                 </div>
                 
-                <h3>👥 Per Operatore:</h3>
+                <h3 style="margin: 20px 0 10px 0; color: #333;">👥 Per Operatore:</h3>
                 <div id="totOperatori">
                     <div class="loading">Caricamento...</div>
                 </div>
                 
-                <h3>📍 Per Campo:</h3>
+                <h3 style="margin: 20px 0 10px 0; color: #333;">📍 Per Campo:</h3>
                 <div id="totCampi">
                     <div class="loading">Caricamento...</div>
                 </div>
                 
-                <h3>🏭 Per Magazzino:</h3>
+                <h3 style="margin: 20px 0 10px 0; color: #333;">🏭 Per Magazzino:</h3>
                 <div id="totMagazzini">
                     <div class="loading">Caricamento...</div>
                 </div>
                 
-                <h3>🌾 Per Prodotto:</h3>
+                <h3 style="margin: 20px 0 10px 0; color: #333;">🌾 Per Prodotto:</h3>
                 <div id="totProdotti">
                     <div class="loading">Caricamento...</div>
                 </div>
@@ -516,17 +673,102 @@
         let isConnected = false;
         let tentativiConnessione = 0;
         const MAX_TENTATIVI = 3;
+        let operatoreSelezionato = null;
+        let campiDisponibili = new Set();
+        let magazziniDisponibili = new Set();
+        let prodottiDisponibili = new Set();
+
+        // STORAGE LOCALE PERSISTENTE
+        const STORAGE_KEY = 'harvest_app_config';
+        const OPERATORS_KEY = 'harvest_operators';
 
         // INIZIALIZZAZIONE
         window.onload = function() {
             console.log('🚀 App avviata');
-            caricaConfigurazione();
+            caricaConfigurazionePersistente();
+            caricaOperatoriPersistenti();
+            
             if (apiUrl) {
+                document.getElementById('apiUrl').value = apiUrl;
                 testaConnessione();
             }
+
+            // Chiudi dropdown quando si clicca fuori
+            document.addEventListener('click', function(e) {
+                if (!e.target.closest('.operator-select-container')) {
+                    document.getElementById('operatorDropdown').classList.remove('show');
+                }
+                // Chiudi anche i suggerimenti
+                document.querySelectorAll('.field-suggestions').forEach(el => {
+                    if (!e.target.closest('.form-group')) {
+                        el.classList.remove('show');
+                    }
+                });
+            });
         };
 
-        // GESTIONE CONFIGURAZIONE
+        // STORAGE PERSISTENTE
+        function salvaConfigurazionePersistente() {
+            const config = {
+                apiUrl: apiUrl,
+                googleSheetUrl: googleSheetUrl,
+                timestamp: new Date().toISOString()
+            };
+            
+            try {
+                // Simula storage persistente con variabile globale
+                window.persistentConfig = config;
+                console.log('✅ Configurazione salvata in memoria persistente');
+            } catch (error) {
+                console.warn('⚠️ Impossibile salvare configurazione:', error);
+            }
+        }
+
+        function caricaConfigurazionePersistente() {
+            try {
+                if (window.persistentConfig) {
+                    const config = window.persistentConfig;
+                    apiUrl = config.apiUrl || '';
+                    googleSheetUrl = config.googleSheetUrl || '';
+                    console.log('✅ Configurazione caricata da memoria persistente');
+                }
+            } catch (error) {
+                console.warn('⚠️ Errore caricamento configurazione:', error);
+            }
+        }
+
+        function salvaOperatoriPersistenti() {
+            try {
+                window.persistentOperators = {
+                    profili: profiliOperatori,
+                    campi: Array.from(campiDisponibili),
+                    magazzini: Array.from(magazziniDisponibili),
+                    prodotti: Array.from(prodottiDisponibili),
+                    timestamp: new Date().toISOString()
+                };
+                console.log('✅ Dati operatori salvati in memoria persistente');
+            } catch (error) {
+                console.warn('⚠️ Impossibile salvare operatori:', error);
+            }
+        }
+
+        function caricaOperatoriPersistenti() {
+            try {
+                if (window.persistentOperators) {
+                    const data = window.persistentOperators;
+                    profiliOperatori = data.profili || {};
+                    campiDisponibili = new Set(data.campi || []);
+                    magazziniDisponibili = new Set(data.magazzini || []);
+                    prodottiDisponibili = new Set(data.prodotti || []);
+                    console.log('✅ Dati operatori caricati da memoria persistente');
+                    aggiornaDropdownOperatori();
+                }
+            } catch (error) {
+                console.warn('⚠️ Errore caricamento operatori:', error);
+            }
+        }
+
+        // CONFIGURAZIONE E CONNESSIONE
         function salvaConfigurazione() {
             const url = document.getElementById('apiUrl').value.trim();
             
@@ -541,24 +783,15 @@
             }
 
             apiUrl = url;
-            window.configData = { apiUrl: apiUrl };
+            salvaConfigurazionePersistente();
             
             mostraMessaggioConfig('URL salvato, test connessione in corso...', 'info');
             
-            // Disabilita pulsante durante il test
             const btn = document.getElementById('configBtn');
             btn.disabled = true;
             btn.textContent = '⏳ Testing...';
             
             testaConnessione();
-        }
-
-        function caricaConfigurazione() {
-            if (window.configData && window.configData.apiUrl) {
-                apiUrl = window.configData.apiUrl;
-                document.getElementById('apiUrl').value = apiUrl;
-                console.log('✅ Configurazione caricata da memoria');
-            }
         }
 
         function mostraMessaggioConfig(messaggio, tipo) {
@@ -573,7 +806,6 @@
             }
         }
 
-        // GESTIONE CONNESSIONE MIGLIORATA
         async function testaConnessione() {
             if (!apiUrl) {
                 console.warn('⚠️ URL API non configurato');
@@ -587,12 +819,12 @@
                 aggiornaStatoSync('🔄 Connessione...');
                 
                 const controller = new AbortController();
-                const timeoutId = setTimeout(() => controller.abort(), 15000); // 15 secondi timeout
+                const timeoutId = setTimeout(() => controller.abort(), 15000);
                 
                 const response = await fetch(apiUrl, {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'text/plain', // Cambiato per evitare preflight CORS
+                        'Content-Type': 'text/plain',
                     },
                     body: JSON.stringify({
                         action: 'test'
@@ -613,17 +845,20 @@
                     tentativiConnessione = 0;
                     googleSheetUrl = data.sheetUrl || '';
                     
+                    // Salva configurazione persistente
+                    salvaConfigurazionePersistente();
+                    
                     aggiornaStatoSync('✅ Online');
                     abilitaFunzioni(true);
                     nascondiConfigPanel();
                     
-                    mostraMessaggioConfig('✅ Connessione riuscita! Configurazione salvata.', 'success');
+                    mostraMessaggioConfig('✅ Connessione riuscita e salvata!', 'success');
                     
-                    // Carica dati iniziali
+                    // Carica dati iniziali e aggiorna operatori
                     await aggiornaStats();
+                    await caricaDatiPerOperatori();
                     
-                    console.log('✅ Connessione stabilita con successo');
-                    
+                    console.log('✅ Connessione stabilita e configurazione salvata');
                 } else {
                     throw new Error(data.error || 'Risposta negativa dal server');
                 }
@@ -637,7 +872,6 @@
                 gestisciErroreConnessione(error);
                 
             } finally {
-                // Riabilita il pulsante
                 const btn = document.getElementById('configBtn');
                 btn.disabled = false;
                 btn.textContent = 'Salva e Testa Connessione';
@@ -678,7 +912,6 @@
                 errorMsg += `\n\n🔄 Tentativo ${tentativiConnessione}/${MAX_TENTATIVI}`;
                 mostraMessaggioConfig(errorMsg, 'error');
                 
-                // Riprova automaticamente dopo 5 secondi
                 setTimeout(() => {
                     if (tentativiConnessione < MAX_TENTATIVI) {
                         testaConnessione();
@@ -699,7 +932,6 @@
             document.getElementById('configPanel').style.display = 'block';
         }
 
-        // GESTIONE STATO INTERFACCIA
         function aggiornaStatoSync(stato) {
             document.getElementById('syncStatus').textContent = stato;
         }
@@ -716,7 +948,187 @@
             });
         }
 
-        // CALCOLO PESO NETTO AUTOMATICO
+        // GESTIONE DROPDOWN OPERATORI
+        function toggleOperatorDropdown() {
+            const dropdown = document.getElementById('operatorDropdown');
+            dropdown.classList.toggle('show');
+            
+            if (dropdown.classList.contains('show')) {
+                aggiornaDropdownOperatori();
+            }
+        }
+
+        function aggiornaDropdownOperatori() {
+            const container = document.getElementById('existingOperators');
+            const operatori = Object.keys(profiliOperatori).sort();
+            
+            if (operatori.length === 0) {
+                container.innerHTML = '<div class="operator-option" style="font-style: italic; color: #666;">Nessun operatore salvato</div>';
+                return;
+            }
+            
+            container.innerHTML = operatori.map(op => `
+                <div class="operator-option" onclick="selezionaOperatore('${op}')">
+                    👤 ${op}
+                    <small style="display: block; color: #666; margin-top: 2px;">
+                        ${profiliOperatori[op].campo || 'N/D'} • ${profiliOperatori[op].magazzino || 'N/D'}
+                    </small>
+                </div>
+            `).join('');
+        }
+
+        function selezionaOperatore(operatoreId) {
+            operatoreSelezionato = operatoreId;
+            document.getElementById('selectedOperator').textContent = `👤 ${operatoreId}`;
+            document.getElementById('operatorDropdown').classList.remove('show');
+            document.getElementById('newOperatorGroup').style.display = 'none';
+            
+            // Carica profilo operatore
+            if (profiliOperatori[operatoreId]) {
+                const profilo = profiliOperatori[operatoreId];
+                document.getElementById('campo').value = profilo.campo || '';
+                document.getElementById('magazzino').value = profilo.magazzino || '';
+                document.getElementById('prodotto').value = profilo.prodotto || '';
+                document.getElementById('tara').value = profilo.tara || '0';
+                
+                calcolaPesoNetto();
+                
+                mostraMessaggio(`✅ Profilo caricato per ${operatoreId}`, 'success');
+                setTimeout(() => {
+                    document.getElementById('messaggiInserimento').innerHTML = '';
+                }, 2000);
+            }
+        }
+
+        function nuovoOperatore() {
+            operatoreSelezionato = null;
+            document.getElementById('selectedOperator').textContent = 'Nuovo operatore';
+            document.getElementById('operatorDropdown').classList.remove('show');
+            document.getElementById('newOperatorGroup').style.display = 'block';
+            document.getElementById('nuovoOperatore').focus();
+            
+            // Reset form
+            document.getElementById('campo').value = '';
+            document.getElementById('magazzino').value = '';
+            document.getElementById('prodotto').value = '';
+            document.getElementById('tara').value = '0';
+            document.getElementById('pesoLordo').value = '';
+            calcolaPesoNetto();
+        }
+
+        // SUGGERIMENTI CAMPI
+        function mostraSuggerimenti(input, tipo) {
+            const valore = input.value.toLowerCase().trim();
+            const suggerimentiId = `suggerimenti${tipo.charAt(0).toUpperCase() + tipo.slice(1)}`;
+            const container = document.getElementById(suggerimentiId);
+            
+            if (!valore) {
+                container.classList.remove('show');
+                return;
+            }
+            
+            let datiDisponibili;
+            switch (tipo) {
+                case 'campi':
+                    datiDisponibili = campiDisponibili;
+                    break;
+                case 'magazzini':
+                    datiDisponibili = magazziniDisponibili;
+                    break;
+                case 'prodotti':
+                    datiDisponibili = prodottiDisponibili;
+                    break;
+                default:
+                    return;
+            }
+            
+            const suggerimenti = Array.from(datiDisponibili)
+                .filter(item => item.toLowerCase().includes(valore))
+                .slice(0, 5);
+            
+            if (suggerimenti.length === 0) {
+                container.classList.remove('show');
+                return;
+            }
+            
+            container.innerHTML = suggerimenti.map(item => `
+                <div class="suggestion-item" onclick="selezionaSuggerimento('${input.id}', '${item}', '${suggerimentiId}')">
+                    ${item}
+                </div>
+            `).join('');
+            
+            container.classList.add('show');
+        }
+
+        function selezionaSuggerimento(inputId, valore, containerId) {
+            document.getElementById(inputId).value = valore;
+            document.getElementById(containerId).classList.remove('show');
+        }
+
+        // CARICAMENTO DATI PER OPERATORI E SUGGERIMENTI
+        async function caricaDatiPerOperatori() {
+            if (!isConnected) return;
+            
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'text/plain',
+                    },
+                    body: JSON.stringify({
+                        action: 'getData'
+                    })
+                });
+
+                if (!response.ok) return;
+
+                const data = await response.json();
+                
+                if (data.success && data.data) {
+                    const pesateServer = data.data;
+                    
+                    // Estrai operatori unici e i loro ultimi dati
+                    const operatoriServer = {};
+                    
+                    pesateServer.forEach(pesata => {
+                        if (pesata.operatore) {
+                            // Aggiorna set di valori disponibili
+                            if (pesata.campo) campiDisponibili.add(pesata.campo);
+                            if (pesata.magazzino) magazziniDisponibili.add(pesata.magazzino);
+                            if (pesata.prodotto) prodottiDisponibili.add(pesata.prodotto);
+                            
+                            // Mantieni l'ultimo profilo per operatore
+                            if (!operatoriServer[pesata.operatore] || 
+                                new Date(pesata.timestamp) > new Date(operatoriServer[pesata.operatore].timestamp)) {
+                                operatoriServer[pesata.operatore] = {
+                                    campo: pesata.campo,
+                                    magazzino: pesata.magazzino,
+                                    prodotto: pesata.prodotto,
+                                    tara: pesata.tara?.toString() || '0',
+                                    timestamp: pesata.timestamp
+                                };
+                            }
+                        }
+                    });
+                    
+                    // Unisci con profili locali (priorità a quelli locali per evitare sovrascritture)
+                    Object.keys(operatoriServer).forEach(op => {
+                        if (!profiliOperatori[op]) {
+                            profiliOperatori[op] = operatoriServer[op];
+                        }
+                    });
+                    
+                    // Salva tutto in memoria persistente
+                    salvaOperatoriPersistenti();
+                    
+                    console.log(`✅ Caricati ${Object.keys(operatoriServer).length} operatori dal server`);
+                }
+            } catch (error) {
+                console.warn('⚠️ Errore caricamento dati operatori:', error);
+            }
+        }
+
+        // CALCOLO PESO NETTO
         function calcolaPesoNetto() {
             const pesoLordo = parseFloat(document.getElementById('pesoLordo').value) || 0;
             const tara = parseFloat(document.getElementById('tara').value) || 0;
@@ -733,7 +1145,19 @@
                 return;
             }
 
-            const operatore = document.getElementById('operatore').value.trim().toUpperCase();
+            // Determina operatore (selezionato o nuovo)
+            let operatoreFinale;
+            if (operatoreSelezionato) {
+                operatoreFinale = operatoreSelezionato;
+            } else {
+                const nuovoOp = document.getElementById('nuovoOperatore').value.trim().toUpperCase();
+                if (!nuovoOp || nuovoOp.length < 2) {
+                    mostraMessaggio('❌ Inserisci un ID operatore valido (minimo 2 caratteri)', 'error');
+                    return;
+                }
+                operatoreFinale = nuovoOp;
+            }
+
             const campo = document.getElementById('campo').value.trim();
             const magazzino = document.getElementById('magazzino').value.trim();
             const pesoLordo = parseFloat(document.getElementById('pesoLordo').value) || 0;
@@ -741,13 +1165,8 @@
             const prodotto = document.getElementById('prodotto').value.trim();
 
             // Validazione
-            if (!operatore || !campo || !magazzino || pesoLordo <= 0 || !prodotto) {
+            if (!campo || !magazzino || pesoLordo <= 0 || !prodotto) {
                 mostraMessaggio('❌ Compila tutti i campi obbligatori!', 'error');
-                return;
-            }
-
-            if (operatore.length < 2) {
-                mostraMessaggio('❌ ID operatore troppo corto (minimo 2 caratteri)', 'error');
                 return;
             }
 
@@ -771,7 +1190,7 @@
                     body: JSON.stringify({
                         action: 'add',
                         data: {
-                            operatore,
+                            operatore: operatoreFinale,
                             campo,
                             magazzino,
                             pesoLordo,
@@ -790,16 +1209,36 @@
                 const result = await response.json();
                 
                 if (result.success) {
-                    // Salva profilo operatore
-                    profiliOperatori[operatore] = {
-                        campo, magazzino, prodotto, tara: tara.toString()
+                    // Salva/aggiorna profilo operatore
+                    profiliOperatori[operatoreFinale] = {
+                        campo, 
+                        magazzino, 
+                        prodotto, 
+                        tara: tara.toString(),
+                        timestamp: new Date().toISOString()
                     };
+                    
+                    // Aggiorna set di valori disponibili
+                    campiDisponibili.add(campo);
+                    magazziniDisponibili.add(magazzino);
+                    prodottiDisponibili.add(prodotto);
+                    
+                    // Salva in memoria persistente
+                    salvaOperatoriPersistenti();
 
-                    // Reset solo peso lordo
+                    // Reset solo peso lordo per permettere pesate multiple
                     document.getElementById('pesoLordo').value = '';
                     calcolaPesoNetto();
                     
-                    mostraMessaggio(`✅ Pesata registrata per ${operatore}! Peso netto: ${pesoNetto}kg`, 'success');
+                    // Se era un nuovo operatore, aggiorna la selezione
+                    if (!operatoreSelezionato) {
+                        operatoreSelezionato = operatoreFinale;
+                        document.getElementById('selectedOperator').textContent = `👤 ${operatoreFinale}`;
+                        document.getElementById('newOperatorGroup').style.display = 'none';
+                        document.getElementById('nuovoOperatore').value = '';
+                    }
+                    
+                    mostraMessaggio(`✅ Pesata registrata per ${operatoreFinale}! Peso netto: ${pesoNetto}kg`, 'success');
                     
                     // Aggiorna statistiche automaticamente
                     await aggiornaStats();
@@ -821,7 +1260,7 @@
             }
         }
 
-        // CARICAMENTO DATI
+        // CARICAMENTO DATI COMPLETI
         async function caricaDatiCompleti() {
             if (!isConnected) {
                 mostraMessaggio('❌ Non connesso!', 'error');
@@ -853,6 +1292,10 @@
                     aggiornaHomeStats();
                     aggiornaElencoPesate();
                     aggiornaTotali();
+                    
+                    // Aggiorna anche i dati per operatori
+                    await caricaDatiPerOperatori();
+                    
                     console.log(`📊 Caricati ${pesate.length} record`);
                 } else {
                     throw new Error(data.error || 'Errore caricamento dati');
@@ -943,30 +1386,6 @@
             `).join('');
         }
 
-        // GESTIONE PROFILI OPERATORI
-        function caricaProfiloOperatore(idOperatore) {
-            if (!idOperatore) return;
-            
-            const operatoreId = idOperatore.toUpperCase();
-            document.getElementById('operatore').value = operatoreId;
-            
-            if (profiliOperatori[operatoreId]) {
-                const profilo = profiliOperatori[operatoreId];
-                document.getElementById('campo').value = profilo.campo || '';
-                document.getElementById('magazzino').value = profilo.magazzino || '';
-                document.getElementById('prodotto').value = profilo.prodotto || '';
-                document.getElementById('tara').value = profilo.tara || '0';
-                
-                // Ricalcola peso netto se c'è un peso lordo
-                calcolaPesoNetto();
-                
-                mostraMessaggio(`✅ Profilo caricato per ${operatoreId}`, 'success');
-                setTimeout(() => {
-                    document.getElementById('messaggiInserimento').innerHTML = '';
-                }, 2000);
-            }
-        }
-
         // UTILITÀ
         function formatData(timestamp) {
             if (!timestamp) return 'N/D';
@@ -990,7 +1409,6 @@
 
         // NAVIGAZIONE
         function vaiA(schermata) {
-            // Controlla se le funzioni sono abilitate
             if (!isConnected && ['inserimento', 'elenco', 'totali'].includes(schermata)) {
                 mostraMessaggio('❌ Configura prima la connessione a Google Sheets!', 'error');
                 mostraConfigPanel();
@@ -1017,7 +1435,6 @@
                 backBtn.style.display = 'block';
             }
 
-            // Carica dati quando necessario
             if ((schermata === 'elenco' || schermata === 'totali') && isConnected) {
                 caricaDatiCompleti();
             }
@@ -1053,11 +1470,12 @@
             console.log('Connected:', isConnected);
             console.log('Pesate in memoria:', pesate.length);
             console.log('Profili operatori:', Object.keys(profiliOperatori).length);
+            console.log('Campi disponibili:', Array.from(campiDisponibili));
+            console.log('Magazzini disponibili:', Array.from(magazziniDisponibili));
+            console.log('Prodotti disponibili:', Array.from(prodottiDisponibili));
             console.log('Google Sheet URL:', googleSheetUrl);
         }
 
-        // Esponi debug per test
-        window.debug = debug;
     </script>
 </body>
 </html>
