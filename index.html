@@ -46,11 +46,11 @@
             font-size: 14px;
         }
 
-        /* PULSANTE HOME MIGLIORATO */
+        /* PULSANTE HOME ABBASSATO */
         .back-btn {
             position: absolute;
             left: 15px;
-            top: 50%;
+            top: 65%; /* Abbassato dal 50% al 65% */
             transform: translateY(-50%);
             background: rgba(255,255,255,0.25);
             border: 2px solid rgba(255,255,255,0.5);
@@ -86,62 +86,6 @@
 
         .content {
             padding: 25px 20px;
-        }
-
-        .config-panel {
-            background: #fff3cd;
-            border: 1px solid #ffeaa7;
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 20px;
-        }
-
-        .config-title {
-            font-weight: bold;
-            color: #856404;
-            margin-bottom: 15px;
-            font-size: 16px;
-        }
-
-        .config-input {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-size: 14px;
-            margin-bottom: 10px;
-        }
-
-        .config-btn {
-            background: #28a745;
-            color: white;
-            border: none;
-            padding: 12px 20px;
-            border-radius: 8px;
-            font-size: 14px;
-            cursor: pointer;
-            width: 100%;
-            font-weight: bold;
-        }
-
-        .config-error {
-            background: #f8d7da;
-            border: 1px solid #f5c6cb;
-            color: #721c24;
-            padding: 12px;
-            border-radius: 8px;
-            margin-top: 10px;
-            font-size: 12px;
-        }
-
-        .config-success {
-            background: #d4edda;
-            border: 1px solid #c3e6cb;
-            color: #155724;
-            padding: 12px;
-            border-radius: 8px;
-            margin-top: 10px;
-            font-size: 12px;
         }
 
         /* HOME SCREEN */
@@ -251,6 +195,25 @@
             border-color: #4CAF50;
             background: white;
             box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+        }
+
+        /* PESO LORDO INGRANDITO PER VISIBILITÀ AL SOLE */
+        .peso-lordo-input {
+            font-size: 28px !important;
+            font-weight: bold !important;
+            text-align: center !important;
+            padding: 20px !important;
+            background: #ffffff !important;
+            border: 3px solid #4CAF50 !important;
+            box-shadow: 0 4px 20px rgba(76, 175, 80, 0.3) !important;
+            color: #2e7d32 !important;
+            min-height: 80px !important;
+        }
+
+        .peso-lordo-input:focus {
+            border-color: #2e7d32 !important;
+            box-shadow: 0 0 0 5px rgba(76, 175, 80, 0.2) !important;
+            background: #f1f8e9 !important;
         }
 
         /* DROPDOWN MIGLIORATO PER OPERATORI */
@@ -491,6 +454,12 @@
             .menu-icon {
                 font-size: 38px;
             }
+
+            .peso-lordo-input {
+                font-size: 24px !important;
+                min-height: 70px !important;
+                padding: 16px !important;
+            }
         }
     </style>
 </head>
@@ -500,18 +469,10 @@
             <button class="back-btn" onclick="tornaHome()" id="backBtn">🏠 Home</button>
             <h1 id="headerTitle">🌾 Gestione Raccolto</h1>
             <p id="headerSubtitle">Cascina Digitale - Multi Utente</p>
-            <div class="sync-status" id="syncStatus">⚡ Non configurato</div>
+            <div class="sync-status" id="syncStatus">⚡ Connesso</div>
         </div>
 
         <div class="content">
-            <!-- CONFIGURAZIONE -->
-            <div class="config-panel" id="configPanel">
-                <div class="config-title">🔧 Configurazione Google Sheets</div>
-                <input type="text" id="apiUrl" class="config-input" placeholder="Inserisci l'URL API di Google Apps Script">
-                <button class="config-btn" onclick="salvaConfigurazione()" id="configBtn">Salva e Testa Connessione</button>
-                <div id="configMessages"></div>
-            </div>
-
             <!-- HOME SCREEN -->
             <div id="home" class="screen active">
                 <div class="stats-home">
@@ -530,7 +491,7 @@
                             <div class="stat-label">Operatori</div>
                         </div>
                     </div>
-                    <button class="config-btn" onclick="aggiornaStats()" style="margin-top: 15px; padding: 10px 20px;">🔄 Aggiorna Ora</button>
+                    <button class="config-btn" onclick="aggiornaStats()" style="margin-top: 15px; padding: 10px 20px; background: rgba(255,255,255,0.2); color: white; border: none; border-radius: 8px; cursor: pointer;">🔄 Aggiorna Ora</button>
                 </div>
 
                 <div class="home-menu">
@@ -597,8 +558,8 @@
                 </div>
 
                 <div class="form-group">
-                    <label>Peso Lordo (kg)</label>
-                    <input type="number" id="pesoLordo" step="0.1" placeholder="0.0" onchange="calcolaPesoNetto()">
+                    <label>Peso Lordo (kg) - OTTIMIZZATO PER SOLE</label>
+                    <input type="number" id="pesoLordo" class="peso-lordo-input" step="0.1" placeholder="0.0" onchange="calcolaPesoNetto()">
                 </div>
 
                 <div class="form-group">
@@ -623,820 +584,76 @@
 
             <!-- ELENCO SCREEN -->
             <div id="elenco" class="screen">
-                <button class="btn btn-secondary" onclick="caricaDatiCompleti()" style="margin-bottom: 15px;">
-                    🔄 AGGIORNA ELENCO
-                </button>
-                <div id="listaPesate">
-                    <div class="loading">Caricamento dati...</div>
+                <button class="btn btn-secondary" onclick="caricaDatiCompleti()" style="margin-bottom: 20px;">🔄 Ricarica Dati</button>
+                <div id="elencoPesate">
+                    <div class="loading">Caricamento pesate in corso...</div>
                 </div>
             </div>
 
             <!-- TOTALI SCREEN -->
             <div id="totali" class="screen">
-                <button class="btn btn-secondary" onclick="caricaDatiCompleti()" style="margin-bottom: 15px;">
-                    🔄 AGGIORNA TOTALI
-                </button>
-                
-                <div class="totale">
-                    🌾 TOTALE GENERALE: <span id="totGen">-</span> kg
-                </div>
-                
-                <h3 style="margin: 20px 0 10px 0; color: #333;">👥 Per Operatore:</h3>
-                <div id="totOperatori">
-                    <div class="loading">Caricamento...</div>
-                </div>
-                
-                <h3 style="margin: 20px 0 10px 0; color: #333;">📍 Per Campo:</h3>
-                <div id="totCampi">
-                    <div class="loading">Caricamento...</div>
-                </div>
-                
-                <h3 style="margin: 20px 0 10px 0; color: #333;">🏭 Per Magazzino:</h3>
-                <div id="totMagazzini">
-                    <div class="loading">Caricamento...</div>
-                </div>
-                
-                <h3 style="margin: 20px 0 10px 0; color: #333;">🌾 Per Prodotto:</h3>
-                <div id="totProdotti">
-                    <div class="loading">Caricamento...</div>
+                <button class="btn btn-secondary" onclick="caricaTotali()" style="margin-bottom: 20px;">🔄 Ricarica Totali</button>
+                <div id="reportTotali">
+                    <div class="loading">Caricamento report in corso...</div>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        // VARIABILI GLOBALI
-        let pesate = [];
-        let profiliOperatori = {};
-        let apiUrl = '';
-        let googleSheetUrl = '';
-        let isConnected = false;
-        let tentativiConnessione = 0;
-        const MAX_TENTATIVI = 3;
-        let operatoreSelezionato = null;
-        let campiDisponibili = new Set();
-        let magazziniDisponibili = new Set();
-        let prodottiDisponibili = new Set();
-
-        // STORAGE LOCALE PERSISTENTE
-        const STORAGE_KEY = 'harvest_app_config';
-        const OPERATORS_KEY = 'harvest_operators';
-
-        // INIZIALIZZAZIONE
-        window.onload = function() {
-            console.log('🚀 App avviata');
-            caricaConfigurazionePersistente();
-            caricaOperatoriPersistenti();
-            
-            if (apiUrl) {
-                document.getElementById('apiUrl').value = apiUrl;
-                testaConnessione();
-            }
-
-            // Chiudi dropdown quando si clicca fuori
-            document.addEventListener('click', function(e) {
-                if (!e.target.closest('.operator-select-container')) {
-                    document.getElementById('operatorDropdown').classList.remove('show');
-                }
-                // Chiudi anche i suggerimenti
-                document.querySelectorAll('.field-suggestions').forEach(el => {
-                    if (!e.target.closest('.form-group')) {
-                        el.classList.remove('show');
-                    }
-                });
-            });
+       
+        const API_URL = 'https://script.google.com/macros/s/AKfycbz0O8hcU7XRueFf5YMZe7SOF6YTD88H1J86OAgL1n1qFGUWmz9OSsmIhjbj7p9PP4MB/exec';
+        
+        // 📊 GESTIONE GLOBALE DATI
+        let operatoriEsistenti = [];
+        let suggerimenti = {
+            campi: [],
+            magazzini: [],
+            prodotti: []
         };
+        let operatoreSelezionato = '';
 
-        // STORAGE PERSISTENTE
-        function salvaConfigurazionePersistente() {
-            const config = {
-                apiUrl: apiUrl,
-                googleSheetUrl: googleSheetUrl,
-                timestamp: new Date().toISOString()
-            };
-            
-            try {
-                // Simula storage persistente con variabile globale
-                window.persistentConfig = config;
-                console.log('✅ Configurazione salvata in memoria persistente');
-            } catch (error) {
-                console.warn('⚠️ Impossibile salvare configurazione:', error);
-            }
-        }
+        // 🏠 INIZIALIZZAZIONE APP
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('App caricata - API configurato:', API_URL);
+            aggiornaStats();
+            caricaOperatori();
+        });
 
-        function caricaConfigurazionePersistente() {
-            try {
-                if (window.persistentConfig) {
-                    const config = window.persistentConfig;
-                    apiUrl = config.apiUrl || '';
-                    googleSheetUrl = config.googleSheetUrl || '';
-                    console.log('✅ Configurazione caricata da memoria persistente');
-                }
-            } catch (error) {
-                console.warn('⚠️ Errore caricamento configurazione:', error);
-            }
-        }
-
-        function salvaOperatoriPersistenti() {
-            try {
-                window.persistentOperators = {
-                    profili: profiliOperatori,
-                    campi: Array.from(campiDisponibili),
-                    magazzini: Array.from(magazziniDisponibili),
-                    prodotti: Array.from(prodottiDisponibili),
-                    timestamp: new Date().toISOString()
-                };
-                console.log('✅ Dati operatori salvati in memoria persistente');
-            } catch (error) {
-                console.warn('⚠️ Impossibile salvare operatori:', error);
-            }
-        }
-
-        function caricaOperatoriPersistenti() {
-            try {
-                if (window.persistentOperators) {
-                    const data = window.persistentOperators;
-                    profiliOperatori = data.profili || {};
-                    campiDisponibili = new Set(data.campi || []);
-                    magazziniDisponibili = new Set(data.magazzini || []);
-                    prodottiDisponibili = new Set(data.prodotti || []);
-                    console.log('✅ Dati operatori caricati da memoria persistente');
-                    aggiornaDropdownOperatori();
-                }
-            } catch (error) {
-                console.warn('⚠️ Errore caricamento operatori:', error);
-            }
-        }
-
-        // CONFIGURAZIONE E CONNESSIONE
-        function salvaConfigurazione() {
-            const url = document.getElementById('apiUrl').value.trim();
-            
-            if (!url) {
-                mostraMessaggioConfig('Inserisci l\'URL dell\'API!', 'error');
-                return;
-            }
-
-            if (!url.includes('script.google.com') || !url.includes('/exec')) {
-                mostraMessaggioConfig('URL non valido! Deve contenere "script.google.com" e finire con "/exec"', 'error');
-                return;
-            }
-
-            apiUrl = url;
-            salvaConfigurazionePersistente();
-            
-            mostraMessaggioConfig('URL salvato, test connessione in corso...', 'info');
-            
-            const btn = document.getElementById('configBtn');
-            btn.disabled = true;
-            btn.textContent = '⏳ Testing...';
-            
-            testaConnessione();
-        }
-
-        function mostraMessaggioConfig(messaggio, tipo) {
-            const container = document.getElementById('configMessages');
-            const className = tipo === 'error' ? 'config-error' : 
-                            tipo === 'success' ? 'config-success' : 'config-info';
-            
-            container.innerHTML = `<div class="${className}">${messaggio}</div>`;
-            
-            if (tipo !== 'error') {
-                setTimeout(() => container.innerHTML = '', 5000);
-            }
-        }
-
-        async function testaConnessione() {
-            if (!apiUrl) {
-                console.warn('⚠️ URL API non configurato');
-                return;
-            }
-
-            tentativiConnessione++;
-            console.log(`🔄 Tentativo connessione #${tentativiConnessione}`);
-            
-            try {
-                aggiornaStatoSync('🔄 Connessione...');
-                
-                const controller = new AbortController();
-                const timeoutId = setTimeout(() => controller.abort(), 15000);
-                
-                const response = await fetch(apiUrl, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'text/plain',
-                    },
-                    body: JSON.stringify({
-                        action: 'test'
-                    }),
-                    signal: controller.signal
-                });
-
-                clearTimeout(timeoutId);
-                
-                if (!response.ok) {
-                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-                }
-
-                const data = await response.json();
-                
-                if (data.success) {
-                    isConnected = true;
-                    tentativiConnessione = 0;
-                    googleSheetUrl = data.sheetUrl || '';
-                    
-                    // Salva configurazione persistente
-                    salvaConfigurazionePersistente();
-                    
-                    aggiornaStatoSync('✅ Online');
-                    abilitaFunzioni(true);
-                    nascondiConfigPanel();
-                    
-                    mostraMessaggioConfig('✅ Connessione riuscita e salvata!', 'success');
-                    
-                    // Carica dati iniziali e aggiorna operatori
-                    await aggiornaStats();
-                    await caricaDatiPerOperatori();
-                    
-                    console.log('✅ Connessione stabilita e configurazione salvata');
-                } else {
-                    throw new Error(data.error || 'Risposta negativa dal server');
-                }
-                
-            } catch (error) {
-                console.error('❌ Errore connessione:', error);
-                isConnected = false;
-                aggiornaStatoSync('❌ Offline');
-                abilitaFunzioni(false);
-                
-                gestisciErroreConnessione(error);
-                
-            } finally {
-                const btn = document.getElementById('configBtn');
-                btn.disabled = false;
-                btn.textContent = 'Salva e Testa Connessione';
-            }
-        }
-
-        function gestisciErroreConnessione(error) {
-            let errorMsg = '';
-            
-            if (error.name === 'AbortError') {
-                errorMsg = '⏱️ TIMEOUT: Il server impiega troppo tempo a rispondere.\n';
-                errorMsg += '• Verifica la tua connessione internet\n';
-                errorMsg += '• Riprova tra qualche minuto';
-            } 
-            else if (error.message.includes('CORS')) {
-                errorMsg = '🚫 ERRORE CORS: Problema di sicurezza del browser.\n';
-                errorMsg += '• Verifica che l\'URL finisca con "/exec"\n';
-                errorMsg += '• Prova a rifare il deployment dello script Google';
-            }
-            else if (error.message.includes('Failed to fetch')) {
-                errorMsg = '🌐 ERRORE RETE: Impossibile raggiungere Google.\n';
-                errorMsg += '• Controlla la connessione internet\n';
-                errorMsg += '• Verifica che l\'URL sia corretto\n';
-                errorMsg += '• Prova da un altro browser';
-            }
-            else if (error.message.includes('HTTP 403')) {
-                errorMsg = '🔒 ACCESSO NEGATO: Permessi insufficienti.\n';
-                errorMsg += '• Verifica le impostazioni del deploy Google Apps Script\n';
-                errorMsg += '• Assicurati che sia impostato su "Anyone"';
-            }
-            else {
-                errorMsg = `❌ ERRORE: ${error.message}\n`;
-                errorMsg += '• Verifica l\'URL dell\'API\n';
-                errorMsg += '• Controlla la console del browser (F12)';
-            }
-            
-            if (tentativiConnessione < MAX_TENTATIVI) {
-                errorMsg += `\n\n🔄 Tentativo ${tentativiConnessione}/${MAX_TENTATIVI}`;
-                mostraMessaggioConfig(errorMsg, 'error');
-                
-                setTimeout(() => {
-                    if (tentativiConnessione < MAX_TENTATIVI) {
-                        testaConnessione();
-                    }
-                }, 5000);
-            } else {
-                errorMsg += '\n\n❌ Troppi tentativi falliti. Verifica la configurazione.';
-                mostraMessaggioConfig(errorMsg, 'error');
-                tentativiConnessione = 0;
-            }
-        }
-
-        function nascondiConfigPanel() {
-            document.getElementById('configPanel').style.display = 'none';
-        }
-
-        function mostraConfigPanel() {
-            document.getElementById('configPanel').style.display = 'block';
-        }
-
-        function aggiornaStatoSync(stato) {
-            document.getElementById('syncStatus').textContent = stato;
-        }
-
-        function abilitaFunzioni(abilita) {
-            const menuItems = ['menuInserimento', 'menuElenco', 'menuTotali'];
-            menuItems.forEach(id => {
-                const element = document.getElementById(id);
-                if (abilita) {
-                    element.classList.remove('disabled');
-                } else {
-                    element.classList.add('disabled');
-                }
-            });
-        }
-
-        // GESTIONE DROPDOWN OPERATORI
-        function toggleOperatorDropdown() {
-            const dropdown = document.getElementById('operatorDropdown');
-            dropdown.classList.toggle('show');
-            
-            if (dropdown.classList.contains('show')) {
-                aggiornaDropdownOperatori();
-            }
-        }
-
-        function aggiornaDropdownOperatori() {
-            const container = document.getElementById('existingOperators');
-            const operatori = Object.keys(profiliOperatori).sort();
-            
-            if (operatori.length === 0) {
-                container.innerHTML = '<div class="operator-option" style="font-style: italic; color: #666;">Nessun operatore salvato</div>';
-                return;
-            }
-            
-            container.innerHTML = operatori.map(op => `
-                <div class="operator-option" onclick="selezionaOperatore('${op}')">
-                    👤 ${op}
-                    <small style="display: block; color: #666; margin-top: 2px;">
-                        ${profiliOperatori[op].campo || 'N/D'} • ${profiliOperatori[op].magazzino || 'N/D'}
-                    </small>
-                </div>
-            `).join('');
-        }
-
-        function selezionaOperatore(operatoreId) {
-            operatoreSelezionato = operatoreId;
-            document.getElementById('selectedOperator').textContent = `👤 ${operatoreId}`;
-            document.getElementById('operatorDropdown').classList.remove('show');
-            document.getElementById('newOperatorGroup').style.display = 'none';
-            
-            // Carica profilo operatore
-            if (profiliOperatori[operatoreId]) {
-                const profilo = profiliOperatori[operatoreId];
-                document.getElementById('campo').value = profilo.campo || '';
-                document.getElementById('magazzino').value = profilo.magazzino || '';
-                document.getElementById('prodotto').value = profilo.prodotto || '';
-                document.getElementById('tara').value = profilo.tara || '0';
-                
-                calcolaPesoNetto();
-                
-                mostraMessaggio(`✅ Profilo caricato per ${operatoreId}`, 'success');
-                setTimeout(() => {
-                    document.getElementById('messaggiInserimento').innerHTML = '';
-                }, 2000);
-            }
-        }
-
-        function nuovoOperatore() {
-            operatoreSelezionato = null;
-            document.getElementById('selectedOperator').textContent = 'Nuovo operatore';
-            document.getElementById('operatorDropdown').classList.remove('show');
-            document.getElementById('newOperatorGroup').style.display = 'block';
-            document.getElementById('nuovoOperatore').focus();
-            
-            // Reset form
-            document.getElementById('campo').value = '';
-            document.getElementById('magazzino').value = '';
-            document.getElementById('prodotto').value = '';
-            document.getElementById('tara').value = '0';
-            document.getElementById('pesoLordo').value = '';
-            calcolaPesoNetto();
-        }
-
-        // SUGGERIMENTI CAMPI
-        function mostraSuggerimenti(input, tipo) {
-            const valore = input.value.toLowerCase().trim();
-            const suggerimentiId = `suggerimenti${tipo.charAt(0).toUpperCase() + tipo.slice(1)}`;
-            const container = document.getElementById(suggerimentiId);
-            
-            if (!valore) {
-                container.classList.remove('show');
-                return;
-            }
-            
-            let datiDisponibili;
-            switch (tipo) {
-                case 'campi':
-                    datiDisponibili = campiDisponibili;
-                    break;
-                case 'magazzini':
-                    datiDisponibili = magazziniDisponibili;
-                    break;
-                case 'prodotti':
-                    datiDisponibili = prodottiDisponibili;
-                    break;
-                default:
-                    return;
-            }
-            
-            const suggerimenti = Array.from(datiDisponibili)
-                .filter(item => item.toLowerCase().includes(valore))
-                .slice(0, 5);
-            
-            if (suggerimenti.length === 0) {
-                container.classList.remove('show');
-                return;
-            }
-            
-            container.innerHTML = suggerimenti.map(item => `
-                <div class="suggestion-item" onclick="selezionaSuggerimento('${input.id}', '${item}', '${suggerimentiId}')">
-                    ${item}
-                </div>
-            `).join('');
-            
-            container.classList.add('show');
-        }
-
-        function selezionaSuggerimento(inputId, valore, containerId) {
-            document.getElementById(inputId).value = valore;
-            document.getElementById(containerId).classList.remove('show');
-        }
-
-        // CARICAMENTO DATI PER OPERATORI E SUGGERIMENTI
-        async function caricaDatiPerOperatori() {
-            if (!isConnected) return;
-            
-            try {
-                const response = await fetch(apiUrl, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'text/plain',
-                    },
-                    body: JSON.stringify({
-                        action: 'getData'
-                    })
-                });
-
-                if (!response.ok) return;
-
-                const data = await response.json();
-                
-                if (data.success && data.data) {
-                    const pesateServer = data.data;
-                    
-                    // Estrai operatori unici e i loro ultimi dati
-                    const operatoriServer = {};
-                    
-                    pesateServer.forEach(pesata => {
-                        if (pesata.operatore) {
-                            // Aggiorna set di valori disponibili
-                            if (pesata.campo) campiDisponibili.add(pesata.campo);
-                            if (pesata.magazzino) magazziniDisponibili.add(pesata.magazzino);
-                            if (pesata.prodotto) prodottiDisponibili.add(pesata.prodotto);
-                            
-                            // Mantieni l'ultimo profilo per operatore
-                            if (!operatoriServer[pesata.operatore] || 
-                                new Date(pesata.timestamp) > new Date(operatoriServer[pesata.operatore].timestamp)) {
-                                operatoriServer[pesata.operatore] = {
-                                    campo: pesata.campo,
-                                    magazzino: pesata.magazzino,
-                                    prodotto: pesata.prodotto,
-                                    tara: pesata.tara?.toString() || '0',
-                                    timestamp: pesata.timestamp
-                                };
-                            }
-                        }
-                    });
-                    
-                    // Unisci con profili locali (priorità a quelli locali per evitare sovrascritture)
-                    Object.keys(operatoriServer).forEach(op => {
-                        if (!profiliOperatori[op]) {
-                            profiliOperatori[op] = operatoriServer[op];
-                        }
-                    });
-                    
-                    // Salva tutto in memoria persistente
-                    salvaOperatoriPersistenti();
-                    
-                    console.log(`✅ Caricati ${Object.keys(operatoriServer).length} operatori dal server`);
-                }
-            } catch (error) {
-                console.warn('⚠️ Errore caricamento dati operatori:', error);
-            }
-        }
-
-        // CALCOLO PESO NETTO
-        function calcolaPesoNetto() {
-            const pesoLordo = parseFloat(document.getElementById('pesoLordo').value) || 0;
-            const tara = parseFloat(document.getElementById('tara').value) || 0;
-            const pesoNetto = pesoLordo - tara;
-            
-            document.getElementById('pesoNetto').value = pesoNetto > 0 ? pesoNetto.toFixed(1) : '0.0';
-        }
-
-        // REGISTRAZIONE PESATA
-        async function registraPesata() {
-            if (!isConnected) {
-                mostraMessaggio('❌ Non connesso a Google Sheets! Configura prima l\'API.', 'error');
-                mostraConfigPanel();
-                return;
-            }
-
-            // Determina operatore (selezionato o nuovo)
-            let operatoreFinale;
-            if (operatoreSelezionato) {
-                operatoreFinale = operatoreSelezionato;
-            } else {
-                const nuovoOp = document.getElementById('nuovoOperatore').value.trim().toUpperCase();
-                if (!nuovoOp || nuovoOp.length < 2) {
-                    mostraMessaggio('❌ Inserisci un ID operatore valido (minimo 2 caratteri)', 'error');
-                    return;
-                }
-                operatoreFinale = nuovoOp;
-            }
-
-            const campo = document.getElementById('campo').value.trim();
-            const magazzino = document.getElementById('magazzino').value.trim();
-            const pesoLordo = parseFloat(document.getElementById('pesoLordo').value) || 0;
-            const tara = parseFloat(document.getElementById('tara').value) || 0;
-            const prodotto = document.getElementById('prodotto').value.trim();
-
-            // Validazione
-            if (!campo || !magazzino || pesoLordo <= 0 || !prodotto) {
-                mostraMessaggio('❌ Compila tutti i campi obbligatori!', 'error');
-                return;
-            }
-
-            const pesoNetto = pesoLordo - tara;
-            
-            if (pesoNetto <= 0) {
-                mostraMessaggio('❌ Il peso netto deve essere maggiore di zero', 'error');
-                return;
-            }
-            
-            const btnRegistra = document.getElementById('btnRegistra');
-            btnRegistra.disabled = true;
-            btnRegistra.textContent = '⏳ Salvando...';
-
-            try {
-                const response = await fetch(apiUrl, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'text/plain',
-                    },
-                    body: JSON.stringify({
-                        action: 'add',
-                        data: {
-                            operatore: operatoreFinale,
-                            campo,
-                            magazzino,
-                            pesoLordo,
-                            tara,
-                            pesoNetto,
-                            prodotto,
-                            timestamp: new Date().toISOString()
-                        }
-                    })
-                });
-
-                if (!response.ok) {
-                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-                }
-
-                const result = await response.json();
-                
-                if (result.success) {
-                    // Salva/aggiorna profilo operatore
-                    profiliOperatori[operatoreFinale] = {
-                        campo, 
-                        magazzino, 
-                        prodotto, 
-                        tara: tara.toString(),
-                        timestamp: new Date().toISOString()
-                    };
-                    
-                    // Aggiorna set di valori disponibili
-                    campiDisponibili.add(campo);
-                    magazziniDisponibili.add(magazzino);
-                    prodottiDisponibili.add(prodotto);
-                    
-                    // Salva in memoria persistente
-                    salvaOperatoriPersistenti();
-
-                    // Reset solo peso lordo per permettere pesate multiple
-                    document.getElementById('pesoLordo').value = '';
-                    calcolaPesoNetto();
-                    
-                    // Se era un nuovo operatore, aggiorna la selezione
-                    if (!operatoreSelezionato) {
-                        operatoreSelezionato = operatoreFinale;
-                        document.getElementById('selectedOperator').textContent = `👤 ${operatoreFinale}`;
-                        document.getElementById('newOperatorGroup').style.display = 'none';
-                        document.getElementById('nuovoOperatore').value = '';
-                    }
-                    
-                    mostraMessaggio(`✅ Pesata registrata per ${operatoreFinale}! Peso netto: ${pesoNetto}kg`, 'success');
-                    
-                    // Aggiorna statistiche automaticamente
-                    await aggiornaStats();
-                    
-                } else {
-                    throw new Error(result.error || 'Errore durante il salvataggio');
-                }
-            } catch (error) {
-                console.error('❌ Errore registrazione:', error);
-                
-                if (error.message.includes('Sistema occupato')) {
-                    mostraMessaggio('⏳ Sistema occupato, riprova tra 5 secondi...', 'error');
-                } else {
-                    mostraMessaggio('❌ Errore durante il salvataggio: ' + error.message, 'error');
-                }
-            } finally {
-                btnRegistra.disabled = false;
-                btnRegistra.textContent = '📝 REGISTRA PESATA';
-            }
-        }
-
-        // CARICAMENTO DATI COMPLETI
-        async function caricaDatiCompleti() {
-            if (!isConnected) {
-                mostraMessaggio('❌ Non connesso!', 'error');
-                return;
-            }
-
-            try {
-                aggiornaStatoSync('🔄 Caricamento...');
-                
-                const response = await fetch(apiUrl, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'text/plain',
-                    },
-                    body: JSON.stringify({
-                        action: 'getData'
-                    })
-                });
-
-                if (!response.ok) {
-                    throw new Error(`HTTP ${response.status}`);
-                }
-
-                const data = await response.json();
-                
-                if (data.success) {
-                    pesate = data.data || [];
-                    aggiornaStatoSync('✅ Online');
-                    aggiornaHomeStats();
-                    aggiornaElencoPesate();
-                    aggiornaTotali();
-                    
-                    // Aggiorna anche i dati per operatori
-                    await caricaDatiPerOperatori();
-                    
-                    console.log(`📊 Caricati ${pesate.length} record`);
-                } else {
-                    throw new Error(data.error || 'Errore caricamento dati');
-                }
-            } catch (error) {
-                console.error('❌ Errore caricamento:', error);
-                aggiornaStatoSync('❌ Errore');
-                mostraMessaggio('Errore durante il caricamento dei dati', 'error');
-            }
-        }
-
-        async function aggiornaStats() {
-            await caricaDatiCompleti();
-        }
-
-        // AGGIORNAMENTO INTERFACCIA
-        function aggiornaHomeStats() {
-            const totalePesate = pesate.length;
-            const totaleKg = pesate.reduce((sum, p) => sum + (p.pesoNetto || 0), 0);
-            const operatoriUnici = [...new Set(pesate.map(p => p.operatore))].length;
-
-            document.getElementById('homeStatPesate').textContent = totalePesate;
-            document.getElementById('homeStatKg').textContent = Math.round(totaleKg);
-            document.getElementById('homeStatOperatori').textContent = operatoriUnici;
-        }
-
-        function aggiornaElencoPesate() {
-            const lista = document.getElementById('listaPesate');
-            
-            if (pesate.length === 0) {
-                lista.innerHTML = '<div class="loading">Nessuna pesata registrata</div>';
-                return;
-            }
-
-            const pesateOrdinate = [...pesate].sort((a, b) => 
-                new Date(b.timestamp || 0) - new Date(a.timestamp || 0)
-            );
-
-            lista.innerHTML = pesateOrdinate.map(pesata => `
-                <div class="pesata-item">
-                    <div class="peso">${pesata.pesoNetto} kg</div>
-                    <div class="dettagli">
-                        🆔 ${pesata.operatore} | 📍 ${pesata.campo} | 🏭 ${pesata.magazzino}<br>
-                        🌾 ${pesata.prodotto} | 📅 ${formatData(pesata.timestamp)}
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        function aggiornaTotali() {
-            const totaleGenerale = pesate.reduce((sum, p) => sum + (p.pesoNetto || 0), 0);
-            document.getElementById('totGen').textContent = Math.round(totaleGenerale);
-
-            // Calcola totali per categoria
-            const totOperatori = {};
-            const totCampi = {};
-            const totMagazzini = {};
-            const totProdotti = {};
-
-            pesate.forEach(p => {
-                totOperatori[p.operatore] = (totOperatori[p.operatore] || 0) + (p.pesoNetto || 0);
-                totCampi[p.campo] = (totCampi[p.campo] || 0) + (p.pesoNetto || 0);
-                totMagazzini[p.magazzino] = (totMagazzini[p.magazzino] || 0) + (p.pesoNetto || 0);
-                totProdotti[p.prodotto] = (totProdotti[p.prodotto] || 0) + (p.pesoNetto || 0);
-            });
-
-            aggiornaSezioneTotal('totOperatori', totOperatori);
-            aggiornaSezioneTotal('totCampi', totCampi);
-            aggiornaSezioneTotal('totMagazzini', totMagazzini);
-            aggiornaSezioneTotal('totProdotti', totProdotti);
-        }
-
-        function aggiornaSezioneTotal(elementId, totali) {
-            const elemento = document.getElementById(elementId);
-            
-            if (Object.keys(totali).length === 0) {
-                elemento.innerHTML = '<div class="loading">Nessun dato disponibile</div>';
-                return;
-            }
-
-            const sorted = Object.entries(totali).sort((a, b) => b[1] - a[1]);
-            
-            elemento.innerHTML = sorted.map(([nome, peso]) => `
-                <div class="totale-item">
-                    <span>${nome}</span>
-                    <span class="totale-peso">${Math.round(peso)} kg</span>
-                </div>
-            `).join('');
-        }
-
-        // UTILITÀ
-        function formatData(timestamp) {
-            if (!timestamp) return 'N/D';
-            try {
-                const date = new Date(timestamp);
-                return date.toLocaleDateString('it-IT') + ' ' + 
-                       date.toLocaleTimeString('it-IT', {hour: '2-digit', minute: '2-digit'});
-            } catch (error) {
-                return 'Data non valida';
-            }
-        }
-
-        function mostraMessaggio(messaggio, tipo) {
-            const container = document.getElementById('messaggiInserimento');
-            container.innerHTML = `<div class="${tipo}">${messaggio}</div>`;
-            
-            setTimeout(() => {
-                container.innerHTML = '';
-            }, 5000);
-        }
-
-        // NAVIGAZIONE
+        // 📱 NAVIGAZIONE TRA SCHERMATE
         function vaiA(schermata) {
-            if (!isConnected && ['inserimento', 'elenco', 'totali'].includes(schermata)) {
-                mostraMessaggio('❌ Configura prima la connessione a Google Sheets!', 'error');
-                mostraConfigPanel();
-                return;
-            }
-
+            // Nascondi tutte le schermate
             document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            
+            // Mostra schermata selezionata
             document.getElementById(schermata).classList.add('active');
             
-            const titoli = {
-                home: { title: '🌾 Gestione Raccolto', subtitle: 'Cascina Digitale - Multi Utente' },
-                inserimento: { title: '📝 Nuova Pesata', subtitle: 'Registra una pesata' },
-                elenco: { title: '📋 Elenco Pesate', subtitle: 'Tutte le pesate registrate' },
-                totali: { title: '📊 Report Totali', subtitle: 'Riepiloghi e statistiche' }
-            };
-            
-            document.getElementById('headerTitle').textContent = titoli[schermata].title;
-            document.getElementById('headerSubtitle').textContent = titoli[schermata].subtitle;
-            
+            // Gestisci header
             const backBtn = document.getElementById('backBtn');
+            const headerTitle = document.getElementById('headerTitle');
+            
             if (schermata === 'home') {
                 backBtn.style.display = 'none';
+                headerTitle.textContent = '🌾 Gestione Raccolto';
             } else {
                 backBtn.style.display = 'block';
+                
+                const titoli = {
+                    'inserimento': '📝 Nuova Pesata',
+                    'elenco': '📋 Elenco Pesate',
+                    'totali': '📊 Report Totali'
+                };
+                headerTitle.textContent = titoli[schermata] || '🌾 Gestione Raccolto';
             }
 
-            if ((schermata === 'elenco' || schermata === 'totali') && isConnected) {
+            // Carica dati specifici per schermata
+            if (schermata === 'elenco') {
                 caricaDatiCompleti();
+            } else if (schermata === 'totali') {
+                caricaTotali();
+            } else if (schermata === 'inserimento') {
+                resetFormInserimento();
+                caricaOperatori();
             }
         }
 
@@ -1444,38 +661,473 @@
             vaiA('home');
         }
 
-        function apriGoogleSheets() {
-            if (googleSheetUrl) {
-                window.open(googleSheetUrl, '_blank');
-            } else {
-                alert('URL del foglio Google non disponibile. Configura prima la connessione.');
+        // 📊 AGGIORNAMENTO STATISTICHE HOME
+        async function aggiornaStats() {
+            try {
+                const response = await fetch(API_URL);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
+                const data = await response.json();
+                
+                if (data.success && data.pesate) {
+                    const pesate = data.pesate;
+                    const totalePesate = pesate.length;
+                    const totaleKg = pesate.reduce((sum, p) => sum + parseFloat(p.pesoNetto || 0), 0);
+                    const operatoriUnici = [...new Set(pesate.map(p => p.operatore))].length;
+                    
+                    document.getElementById('homeStatPesate').textContent = totalePesate;
+                    document.getElementById('homeStatKg').textContent = totaleKg.toFixed(1);
+                    document.getElementById('homeStatOperatori').textContent = operatoriUnici;
+                    
+                    document.getElementById('syncStatus').innerHTML = '✅ Aggiornato';
+                } else {
+                    throw new Error(data.error || 'Errore nel caricamento dati');
+                }
+            } catch (error) {
+                console.error('Errore stats:', error);
+                document.getElementById('syncStatus').innerHTML = '❌ Errore';
+                document.getElementById('homeStatPesate').textContent = '?';
+                document.getElementById('homeStatKg').textContent = '?';
+                document.getElementById('homeStatOperatori').textContent = '?';
             }
         }
 
-        // GESTIONE ERRORI GLOBALI
-        window.addEventListener('error', function(e) {
-            console.error('💥 Errore JavaScript:', e.error);
-            aggiornaStatoSync('❌ Errore App');
-        });
-
-        window.addEventListener('unhandledrejection', function(e) {
-            console.error('💥 Promise rifiutata:', e.reason);
-            e.preventDefault();
-        });
-
-        // DEBUG
-        function debug() {
-            console.log('🐛 DEBUG INFO:');
-            console.log('API URL:', apiUrl);
-            console.log('Connected:', isConnected);
-            console.log('Pesate in memoria:', pesate.length);
-            console.log('Profili operatori:', Object.keys(profiliOperatori).length);
-            console.log('Campi disponibili:', Array.from(campiDisponibili));
-            console.log('Magazzini disponibili:', Array.from(magazziniDisponibili));
-            console.log('Prodotti disponibili:', Array.from(prodottiDisponibili));
-            console.log('Google Sheet URL:', googleSheetUrl);
+        // 👥 GESTIONE OPERATORI
+        async function caricaOperatori() {
+            try {
+                const response = await fetch(API_URL);
+                const data = await response.json();
+                
+                if (data.success && data.pesate) {
+                    // Estrai operatori unici
+                    const operatori = [...new Set(data.pesate
+                        .map(p => p.operatore)
+                        .filter(op => op && op.trim())
+                    )].sort();
+                    
+                    operatoriEsistenti = operatori;
+                    aggiornaDropdownOperatori();
+                    
+                    // Aggiorna suggerimenti
+                    suggerimenti.campi = [...new Set(data.pesate.map(p => p.campo).filter(c => c))];
+                    suggerimenti.magazzini = [...new Set(data.pesate.map(p => p.magazzino).filter(m => m))];
+                    suggerimenti.prodotti = [...new Set(data.pesate.map(p => p.prodotto).filter(pr => pr))];
+                }
+            } catch (error) {
+                console.error('Errore caricamento operatori:', error);
+            }
         }
 
+        function aggiornaDropdownOperatori() {
+            const container = document.getElementById('existingOperators');
+            container.innerHTML = '';
+            
+            operatoriEsistenti.forEach(operatore => {
+                const div = document.createElement('div');
+                div.className = 'operator-option';
+                div.textContent = operatore;
+                div.onclick = () => selezionaOperatore(operatore);
+                container.appendChild(div);
+            });
+        }
+
+        function toggleOperatorDropdown() {
+            const dropdown = document.getElementById('operatorDropdown');
+            dropdown.classList.toggle('show');
+        }
+
+        function selezionaOperatore(operatore) {
+            operatoreSelezionato = operatore;
+            document.getElementById('selectedOperator').textContent = operatore;
+            document.getElementById('operatorDropdown').classList.remove('show');
+            document.getElementById('newOperatorGroup').style.display = 'none';
+            document.getElementById('nuovoOperatore').value = '';
+        }
+
+        function nuovoOperatore() {
+            document.getElementById('selectedOperator').textContent = 'Nuovo Operatore';
+            document.getElementById('operatorDropdown').classList.remove('show');
+            document.getElementById('newOperatorGroup').style.display = 'block';
+            document.getElementById('nuovoOperatore').focus();
+            operatoreSelezionato = '';
+        }
+
+        // 💡 SUGGERIMENTI CAMPI
+        function mostraSuggerimenti(input, tipo) {
+            const valore = input.value.toLowerCase();
+            const suggerimentiContainer = input.parentNode.querySelector('.field-suggestions');
+            const items = suggerimenti[tipo] || [];
+            
+            if (!valore || items.length === 0) {
+                suggerimentiContainer.classList.remove('show');
+                return;
+            }
+            
+            const filtrati = items.filter(item => 
+                item.toLowerCase().includes(valore)
+            );
+            
+            if (filtrati.length === 0) {
+                suggerimentiContainer.classList.remove('show');
+                return;
+            }
+            
+            suggerimentiContainer.innerHTML = '';
+            filtrati.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'suggestion-item';
+                div.textContent = item;
+                div.onclick = () => {
+                    input.value = item;
+                    suggerimentiContainer.classList.remove('show');
+                };
+                suggerimentiContainer.appendChild(div);
+            });
+            
+            suggerimentiContainer.classList.add('show');
+        }
+
+        // 🧮 CALCOLO PESO NETTO
+        function calcolaPesoNetto() {
+            const pesoLordo = parseFloat(document.getElementById('pesoLordo').value) || 0;
+            const tara = parseFloat(document.getElementById('tara').value) || 0;
+            const pesoNetto = Math.max(0, pesoLordo - tara);
+            
+            document.getElementById('pesoNetto').value = pesoNetto.toFixed(1);
+        }
+
+        // 💾 REGISTRAZIONE PESATA
+        async function registraPesata() {
+            const btn = document.getElementById('btnRegistra');
+            const messages = document.getElementById('messaggiInserimento');
+            
+            try {
+                btn.disabled = true;
+                btn.textContent = '⏳ Registrando...';
+                
+                // Determina operatore
+                let operatore = operatoreSelezionato;
+                if (!operatore) {
+                    operatore = document.getElementById('nuovoOperatore').value.trim().toUpperCase();
+                }
+                
+                // Validazione
+                const campo = document.getElementById('campo').value.trim();
+                const magazzino = document.getElementById('magazzino').value.trim();
+                const pesoLordo = parseFloat(document.getElementById('pesoLordo').value);
+                const tara = parseFloat(document.getElementById('tara').value) || 0;
+                const pesoNetto = parseFloat(document.getElementById('pesoNetto').value);
+                const prodotto = document.getElementById('prodotto').value.trim();
+                
+                if (!operatore) {
+                    throw new Error('Seleziona o inserisci un operatore');
+                }
+                if (!campo) {
+                    throw new Error('Inserisci il nome del campo');
+                }
+                if (!magazzino) {
+                    throw new Error('Inserisci il magazzino');
+                }
+                if (!pesoLordo || pesoLordo <= 0) {
+                    throw new Error('Inserisci un peso lordo valido');
+                }
+                if (!prodotto) {
+                    throw new Error('Inserisci il nome del prodotto');
+                }
+                
+                // Prepara dati
+                const datiPesata = {
+                    operatore: operatore,
+                    campo: campo,
+                    magazzino: magazzino,
+                    pesoLordo: pesoLordo,
+                    tara: tara,
+                    pesoNetto: pesoNetto,
+                    prodotto: prodotto,
+                    timestamp: new Date().toISOString(),
+                    action: 'add'
+                };
+                
+                // Invio dati
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(datiPesata)
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    messages.innerHTML = '<div class="success">✅ Pesata registrata con successo!</div>';
+                    resetFormInserimento();
+                    aggiornaStats();
+                    caricaOperatori(); // Ricarica operatori per aggiornare la lista
+                } else {
+                    throw new Error(result.error || 'Errore durante la registrazione');
+                }
+                
+            } catch (error) {
+                console.error('Errore registrazione:', error);
+                messages.innerHTML = `<div class="error">❌ ${error.message}</div>`;
+            } finally {
+                btn.disabled = false;
+                btn.textContent = '📝 REGISTRA PESATA';
+            }
+        }
+
+        // 🔄 RESET FORM INSERIMENTO
+        function resetFormInserimento() {
+            document.getElementById('selectedOperator').textContent = 'Seleziona o crea nuovo operatore...';
+            document.getElementById('newOperatorGroup').style.display = 'none';
+            document.getElementById('nuovoOperatore').value = '';
+            document.getElementById('campo').value = '';
+            document.getElementById('magazzino').value = '';
+            document.getElementById('pesoLordo').value = '';
+            document.getElementById('tara').value = '0';
+            document.getElementById('pesoNetto').value = '';
+            document.getElementById('prodotto').value = '';
+            document.getElementById('messaggiInserimento').innerHTML = '';
+            operatoreSelezionato = '';
+            
+            // Nascondi tutti i suggerimenti
+            document.querySelectorAll('.field-suggestions').forEach(s => s.classList.remove('show'));
+        }
+
+        // 📋 CARICAMENTO DATI COMPLETI
+        async function caricaDatiCompleti() {
+            const container = document.getElementById('elencoPesate');
+            
+            try {
+                container.innerHTML = '<div class="loading">⏳ Caricamento pesate...</div>';
+                
+                const response = await fetch(API_URL);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
+                const data = await response.json();
+                
+                if (data.success && data.pesate) {
+                    const pesate = data.pesate;
+                    
+                    if (pesate.length === 0) {
+                        container.innerHTML = '<div class="loading">📝 Nessuna pesata registrata</div>';
+                        return;
+                    }
+                    
+                    // Ordina per timestamp decrescente (più recenti prima)
+                    pesate.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+                    
+                    let html = '';
+                    pesate.forEach((pesata, index) => {
+                        const data = new Date(pesata.timestamp).toLocaleDateString('it-IT');
+                        const ora = new Date(pesata.timestamp).toLocaleTimeString('it-IT', {
+                            hour: '2-digit',
+                            minute: '2-digit'
+                        });
+                        
+                        html += `
+                            <div class="pesata-item">
+                                <div class="peso">${parseFloat(pesata.pesoNetto || 0).toFixed(1)} kg</div>
+                                <div class="dettagli">
+                                    <strong>${pesata.operatore || 'N/D'}</strong> • ${pesata.prodotto || 'N/D'}<br>
+                                    📍 Campo: ${pesata.campo || 'N/D'} → ${pesata.magazzino || 'N/D'}<br>
+                                    ⚖️ Lordo: ${parseFloat(pesata.pesoLordo || 0).toFixed(1)} kg - Tara: ${parseFloat(pesata.tara || 0).toFixed(1)} kg<br>
+                                    🕐 ${data} alle ${ora}
+                                </div>
+                            </div>
+                        `;
+                    });
+                    
+                    container.innerHTML = html;
+                } else {
+                    throw new Error(data.error || 'Errore nel caricamento pesate');
+                }
+                
+            } catch (error) {
+                console.error('Errore caricamento pesate:', error);
+                container.innerHTML = `<div class="error">❌ Errore nel caricamento: ${error.message}</div>`;
+            }
+        }
+
+        // 📊 CARICAMENTO TOTALI
+        async function caricaTotali() {
+            const container = document.getElementById('reportTotali');
+            
+            try {
+                container.innerHTML = '<div class="loading">⏳ Caricamento report...</div>';
+                
+                const response = await fetch(API_URL);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
+                const data = await response.json();
+                
+                if (data.success && data.pesate) {
+                    const pesate = data.pesate;
+                    
+                    if (pesate.length === 0) {
+                        container.innerHTML = '<div class="loading">📊 Nessun dato per i report</div>';
+                        return;
+                    }
+                    
+                    // Calcola totali
+                    const totaleGenerale = pesate.reduce((sum, p) => sum + parseFloat(p.pesoNetto || 0), 0);
+                    
+                    // Raggruppa per operatore
+                    const perOperatore = {};
+                    pesate.forEach(p => {
+                        const op = p.operatore || 'N/D';
+                        if (!perOperatore[op]) {
+                            perOperatore[op] = { pesate: 0, kg: 0 };
+                        }
+                        perOperatore[op].pesate++;
+                        perOperatore[op].kg += parseFloat(p.pesoNetto || 0);
+                    });
+                    
+                    // Raggruppa per prodotto
+                    const perProdotto = {};
+                    pesate.forEach(p => {
+                        const prod = p.prodotto || 'N/D';
+                        if (!perProdotto[prod]) {
+                            perProdotto[prod] = { pesate: 0, kg: 0 };
+                        }
+                        perProdotto[prod].pesate++;
+                        perProdotto[prod].kg += parseFloat(p.pesoNetto || 0);
+                    });
+                    
+                    // Raggruppa per campo
+                    const perCampo = {};
+                    pesate.forEach(p => {
+                        const campo = p.campo || 'N/D';
+                        if (!perCampo[campo]) {
+                            perCampo[campo] = { pesate: 0, kg: 0 };
+                        }
+                        perCampo[campo].pesate++;
+                        perCampo[campo].kg += parseFloat(p.pesoNetto || 0);
+                    });
+                    
+                    let html = `
+                        <div class="totale">
+                            📊 TOTALE GENERALE: ${totaleGenerale.toFixed(1)} kg
+                            <br>
+                            <small>${pesate.length} pesate registrate</small>
+                        </div>
+                        
+                        <h3 style="margin: 20px 0 10px 0; color: #333;">👥 Per Operatore</h3>
+                    `;
+                    
+                    Object.entries(perOperatore)
+                        .sort((a, b) => b[1].kg - a[1].kg)
+                        .forEach(([operatore, dati]) => {
+                            html += `
+                                <div class="totale-item">
+                                    <span><strong>${operatore}</strong> (${dati.pesate} pesate)</span>
+                                    <span class="totale-peso">${dati.kg.toFixed(1)} kg</span>
+                                </div>
+                            `;
+                        });
+                    
+                    html += '<h3 style="margin: 20px 0 10px 0; color: #333;">🌾 Per Prodotto</h3>';
+                    Object.entries(perProdotto)
+                        .sort((a, b) => b[1].kg - a[1].kg)
+                        .forEach(([prodotto, dati]) => {
+                            html += `
+                                <div class="totale-item">
+                                    <span><strong>${prodotto}</strong> (${dati.pesate} pesate)</span>
+                                    <span class="totale-peso">${dati.kg.toFixed(1)} kg</span>
+                                </div>
+                            `;
+                        });
+                    
+                    html += '<h3 style="margin: 20px 0 10px 0; color: #333;">📍 Per Campo</h3>';
+                    Object.entries(perCampo)
+                        .sort((a, b) => b[1].kg - a[1].kg)
+                        .forEach(([campo, dati]) => {
+                            html += `
+                                <div class="totale-item">
+                                    <span><strong>${campo}</strong> (${dati.pesate} pesate)</span>
+                                    <span class="totale-peso">${dati.kg.toFixed(1)} kg</span>
+                                </div>
+                            `;
+                        });
+                    
+                    container.innerHTML = html;
+                } else {
+                    throw new Error(data.error || 'Errore nel caricamento report');
+                }
+                
+            } catch (error) {
+                console.error('Errore caricamento totali:', error);
+                container.innerHTML = `<div class="error">❌ Errore nel caricamento: ${error.message}</div>`;
+            }
+        }
+
+        // 📱 APERTURA GOOGLE SHEETS
+        function apriGoogleSheets() {
+            // Estrai l'ID dello script dall'URL API
+            const scriptMatch = API_URL.match(/\/s\/([a-zA-Z0-9-_]+)\//);
+            
+            if (scriptMatch && scriptMatch[1]) {
+                // Questo dovrebbe essere sostituito con l'ID effettivo del Google Sheet
+                // Per ora mostra un messaggio all'utente
+                alert('💡 Per aprire Google Sheets:\n\n1. Vai su sheets.google.com\n2. Cerca il foglio "Gestione Pesate Raccolto"\n3. Oppure usa l\'URL che ti ha fornito il tuo amministratore');
+            } else {
+                alert('⚠️ URL Google Sheets non configurato. Contatta l\'amministratore.');
+            }
+        }
+
+        // 🔄 GESTIONE CLICK ESTERNI (chiudi dropdown)
+        document.addEventListener('click', function(event) {
+            if (!event.target.closest('.operator-select-container')) {
+                document.getElementById('operatorDropdown').classList.remove('show');
+            }
+            
+            // Chiudi suggerimenti se click esterno
+            if (!event.target.closest('.form-group')) {
+                document.querySelectorAll('.field-suggestions').forEach(s => {
+                    s.classList.remove('show');
+                });
+            }
+        });
+
+        // 🎯 GESTIONE INVIO CON ENTER
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                const activeScreen = document.querySelector('.screen.active');
+                if (activeScreen && activeScreen.id === 'inserimento') {
+                    const target = event.target;
+                    if (target.tagName === 'INPUT' && target.type === 'number') {
+                        event.preventDefault();
+                        // Se è nel peso lordo, vai alla tara
+                        if (target.id === 'pesoLordo') {
+                            document.getElementById('tara').focus();
+                        }
+                        // Se è nella tara, registra la pesata
+                        else if (target.id === 'tara') {
+                            registraPesata();
+                        }
+                    }
+                }
+            }
+        });
+
+        // 🔧 UTILITY: LOG CONFIGURAZIONE
+        console.log('🚀 App Gestione Raccolto inizializzata');
+        console.log('📡 API URL:', API_URL);
+        console.log('💡 Per modificare l\'URL, cerca "const API_URL" nel codice sorgente');
     </script>
 </body>
 </html>
