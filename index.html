@@ -645,6 +645,7 @@
     </div>
 
     <script>
+        // ⚡ CONFIGURAZIONE URL - MODIFICA QUI IL TUO URL GOOGLE APPS SCRIPT
         const API_URL = 'https://script.google.com/macros/s/AKfycbz0O8hcU7XRueFf5YMZe7SOF6YTD88H1J86OAgL1n1qFGUWmz9OSsmIhjbj7p9PP4MB/exec';
         
         // 📊 GESTIONE GLOBALE DATI
@@ -662,6 +663,12 @@
             const debugInfo = document.getElementById('debugInfo');
             const debugStatus = document.getElementById('debugStatus');
             const debugLastTest = document.getElementById('debugLastTest');
+            
+            // Safety check for DOM elements
+            if (!debugInfo || !debugStatus || !debugLastTest) {
+                console.log(`[DEBUG] DOM not ready, logging: ${info}`);
+                return;
+            }
             
             let statusText = 'Errore';
             let statusClass = 'debug-error';
@@ -739,15 +746,20 @@
         // 🏠 INIZIALIZZAZIONE APP
         document.addEventListener('DOMContentLoaded', function() {
             console.log('[DEBUG] App caricata - API configurato:', API_URL);
-            updateDebugInfo('App inizializzata, pronto per il test', false, false);
             
-            // Auto-test connection on load
-            testConnection().then(() => {
-                aggiornaStats();
-                caricaOperatori();
-            }).catch(error => {
-                console.error('[DEBUG] Auto-test fallito:', error);
-            });
+            // Wait a bit for DOM to be fully ready
+            setTimeout(() => {
+                updateDebugInfo('App inizializzata, pronto per il test', false, false);
+                
+                // Auto-test connection on load
+                testConnection().then(() => {
+                    aggiornaStats();
+                    caricaOperatori();
+                }).catch(error => {
+                    console.error('[DEBUG] Auto-test fallito:', error);
+                    updateDebugInfo(`Auto-test fallito: ${error.message}`, true, false);
+                });
+            }, 100);
         });
 
         // 📱 NAVIGAZIONE TRA SCHERMATE
@@ -1236,4 +1248,3 @@
     </script>
 </body>
 </html>
-
