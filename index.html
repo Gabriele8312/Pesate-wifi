@@ -46,11 +46,10 @@
             font-size: 14px;
         }
 
-        /* PULSANTE HOME ABBASSATO */
         .back-btn {
             position: absolute;
             left: 15px;
-            top: 65%; /* Abbassato dal 50% al 65% */
+            top: 65%;
             transform: translateY(-50%);
             background: rgba(255,255,255,0.25);
             border: 2px solid rgba(255,255,255,0.5);
@@ -86,6 +85,42 @@
 
         .content {
             padding: 25px 20px;
+        }
+
+        /* DEBUG PANEL */
+        .debug-panel {
+            background: #f8f9fa;
+            border: 2px solid #dee2e6;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 20px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+        }
+
+        .debug-title {
+            font-weight: bold;
+            color: #495057;
+            margin-bottom: 10px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        .debug-info {
+            background: white;
+            padding: 10px;
+            border-radius: 6px;
+            margin-bottom: 8px;
+            border-left: 4px solid #007bff;
+        }
+
+        .debug-error {
+            background: #fff5f5;
+            border-left-color: #dc3545;
+        }
+
+        .debug-success {
+            background: #f0fff4;
+            border-left-color: #28a745;
         }
 
         /* HOME SCREEN */
@@ -197,7 +232,6 @@
             box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
         }
 
-        /* PESO LORDO INGRANDITO PER VISIBILITÀ AL SOLE */
         .peso-lordo-input {
             font-size: 28px !important;
             font-weight: bold !important;
@@ -216,7 +250,6 @@
             background: #f1f8e9 !important;
         }
 
-        /* DROPDOWN MIGLIORATO PER OPERATORI */
         .operator-select-container {
             position: relative;
         }
@@ -314,7 +347,6 @@
             box-shadow: 0 6px 20px rgba(26, 115, 232, 0.4);
         }
 
-        /* FIELD SUGGESTIONS */
         .field-suggestions {
             background: #f8f9fa;
             border: 1px solid #dee2e6;
@@ -345,7 +377,6 @@
             border-bottom: none;
         }
 
-        /* SCREEN MANAGEMENT */
         .screen {
             display: none;
         }
@@ -429,7 +460,6 @@
             border: 1px solid #c3e6cb;
         }
 
-        /* RESPONSIVE IMPROVEMENTS */
         @media (max-width: 480px) {
             .container {
                 margin: 0;
@@ -460,6 +490,11 @@
                 min-height: 70px !important;
                 padding: 16px !important;
             }
+
+            .debug-panel {
+                font-size: 10px;
+                padding: 10px;
+            }
         }
     </style>
 </head>
@@ -473,6 +508,17 @@
         </div>
 
         <div class="content">
+            <!-- DEBUG PANEL -->
+            <div class="debug-panel" id="debugPanel">
+                <div class="debug-title">🔧 Debug Connection</div>
+                <div class="debug-info" id="debugInfo">
+                    <div><strong>API URL:</strong> Configurazione in corso...</div>
+                    <div><strong>Status:</strong> <span id="debugStatus">Inizializzazione</span></div>
+                    <div><strong>Ultimo Test:</strong> <span id="debugLastTest">Mai eseguito</span></div>
+                </div>
+                <button class="btn btn-secondary" onclick="testConnection()" style="margin: 10px 0 0 0; padding: 8px 16px; font-size: 12px;">🧪 Test Connessione</button>
+            </div>
+
             <!-- HOME SCREEN -->
             <div id="home" class="screen active">
                 <div class="stats-home">
@@ -523,7 +569,6 @@
 
             <!-- INSERIMENTO SCREEN -->
             <div id="inserimento" class="screen">
-                <!-- SELEZIONE OPERATORE CON DROPDOWN -->
                 <div class="form-group">
                     <label>Seleziona Operatore</label>
                     <div class="operator-select-container">
@@ -539,7 +584,6 @@
                     </div>
                 </div>
 
-                <!-- INPUT MANUALE PER NUOVO OPERATORE -->
                 <div class="form-group" id="newOperatorGroup" style="display: none;">
                     <label>ID Nuovo Operatore</label>
                     <input type="text" id="nuovoOperatore" placeholder="Inserisci ID operatore (es. OP001)" style="text-transform: uppercase;">
@@ -601,7 +645,7 @@
     </div>
 
     <script>
-       
+        // ⚡ CONFIGURAZIONE URL - MODIFICA QUI IL TUO URL GOOGLE APPS SCRIPT
         const API_URL = 'https://script.google.com/macros/s/AKfycbz0O8hcU7XRueFf5YMZe7SOF6YTD88H1J86OAgL1n1qFGUWmz9OSsmIhjbj7p9PP4MB/exec';
         
         // 📊 GESTIONE GLOBALE DATI
@@ -612,23 +656,106 @@
             prodotti: []
         };
         let operatoreSelezionato = '';
+        let debugMode = true;
+
+        // 🔧 DEBUG FUNCTIONS
+        function updateDebugInfo(info, isError = false, isSuccess = false) {
+            const debugInfo = document.getElementById('debugInfo');
+            const debugStatus = document.getElementById('debugStatus');
+            const debugLastTest = document.getElementById('debugLastTest');
+            
+            let statusText = 'Errore';
+            let statusClass = 'debug-error';
+            
+            if (isSuccess) {
+                statusText = 'Connesso';
+                statusClass = 'debug-success';
+            } else if (!isError) {
+                statusText = 'In corso...';
+                statusClass = 'debug-info';
+            }
+            
+            debugStatus.textContent = statusText;
+            debugLastTest.textContent = new Date().toLocaleTimeString('it-IT');
+            
+            debugInfo.className = `debug-info ${statusClass}`;
+            debugInfo.innerHTML = `
+                <div><strong>API URL:</strong> ${API_URL}</div>
+                <div><strong>Status:</strong> ${statusText}</div>
+                <div><strong>Ultimo Test:</strong> ${new Date().toLocaleTimeString('it-IT')}</div>
+                <div><strong>Dettagli:</strong> ${info}</div>
+            `;
+            
+            console.log(`[DEBUG] ${statusText}: ${info}`);
+        }
+
+        async function testConnection() {
+            updateDebugInfo('Testando connessione...', false, false);
+            
+            try {
+                const response = await fetch(API_URL, {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json',
+                    }
+                });
+                
+                console.log('[DEBUG] Response status:', response.status);
+                console.log('[DEBUG] Response headers:', [...response.headers.entries()]);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
+                const contentType = response.headers.get('content-type');
+                console.log('[DEBUG] Content-Type:', contentType);
+                
+                const responseText = await response.text();
+                console.log('[DEBUG] Raw response:', responseText);
+                
+                // Try to parse as JSON
+                let data;
+                try {
+                    data = JSON.parse(responseText);
+                    console.log('[DEBUG] Parsed JSON:', data);
+                } catch (parseError) {
+                    throw new Error(`Risposta non è JSON valido: ${parseError.message}. Raw: ${responseText.substring(0, 200)}...`);
+                }
+                
+                if (data.success) {
+                    updateDebugInfo(`Connessione OK! Trovate ${data.pesate ? data.pesate.length : 0} pesate`, false, true);
+                } else {
+                    updateDebugInfo(`API risponde ma segnala errore: ${data.error || 'Errore sconosciuto'}`, true, false);
+                }
+                
+                return data;
+                
+            } catch (error) {
+                console.error('[DEBUG] Connection test failed:', error);
+                updateDebugInfo(`Errore connessione: ${error.message}`, true, false);
+                throw error;
+            }
+        }
 
         // 🏠 INIZIALIZZAZIONE APP
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('App caricata - API configurato:', API_URL);
-            aggiornaStats();
-            caricaOperatori();
+            console.log('[DEBUG] App caricata - API configurato:', API_URL);
+            updateDebugInfo('App inizializzata, pronto per il test', false, false);
+            
+            // Auto-test connection on load
+            testConnection().then(() => {
+                aggiornaStats();
+                caricaOperatori();
+            }).catch(error => {
+                console.error('[DEBUG] Auto-test fallito:', error);
+            });
         });
 
         // 📱 NAVIGAZIONE TRA SCHERMATE
         function vaiA(schermata) {
-            // Nascondi tutte le schermate
             document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-            
-            // Mostra schermata selezionata
             document.getElementById(schermata).classList.add('active');
             
-            // Gestisci header
             const backBtn = document.getElementById('backBtn');
             const headerTitle = document.getElementById('headerTitle');
             
@@ -646,7 +773,6 @@
                 headerTitle.textContent = titoli[schermata] || '🌾 Gestione Raccolto';
             }
 
-            // Carica dati specifici per schermata
             if (schermata === 'elenco') {
                 caricaDatiCompleti();
             } else if (schermata === 'totali') {
@@ -664,13 +790,9 @@
         // 📊 AGGIORNAMENTO STATISTICHE HOME
         async function aggiornaStats() {
             try {
-                const response = await fetch(API_URL);
+                updateDebugInfo('Caricando statistiche...', false, false);
                 
-                if (!response.ok) {
-                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-                }
-                
-                const data = await response.json();
+                const data = await testConnection();
                 
                 if (data.success && data.pesate) {
                     const pesate = data.pesate;
@@ -683,15 +805,17 @@
                     document.getElementById('homeStatOperatori').textContent = operatoriUnici;
                     
                     document.getElementById('syncStatus').innerHTML = '✅ Aggiornato';
+                    updateDebugInfo(`Statistiche caricate: ${totalePesate} pesate, ${totaleKg.toFixed(1)} kg`, false, true);
                 } else {
                     throw new Error(data.error || 'Errore nel caricamento dati');
                 }
             } catch (error) {
-                console.error('Errore stats:', error);
+                console.error('[DEBUG] Errore stats:', error);
                 document.getElementById('syncStatus').innerHTML = '❌ Errore';
                 document.getElementById('homeStatPesate').textContent = '?';
                 document.getElementById('homeStatKg').textContent = '?';
                 document.getElementById('homeStatOperatori').textContent = '?';
+                updateDebugInfo(`Errore caricamento stats: ${error.message}`, true, false);
             }
         }
 
@@ -702,7 +826,6 @@
                 const data = await response.json();
                 
                 if (data.success && data.pesate) {
-                    // Estrai operatori unici
                     const operatori = [...new Set(data.pesate
                         .map(p => p.operatore)
                         .filter(op => op && op.trim())
@@ -711,13 +834,12 @@
                     operatoriEsistenti = operatori;
                     aggiornaDropdownOperatori();
                     
-                    // Aggiorna suggerimenti
                     suggerimenti.campi = [...new Set(data.pesate.map(p => p.campo).filter(c => c))];
                     suggerimenti.magazzini = [...new Set(data.pesate.map(p => p.magazzino).filter(m => m))];
                     suggerimenti.prodotti = [...new Set(data.pesate.map(p => p.prodotto).filter(pr => pr))];
                 }
             } catch (error) {
-                console.error('Errore caricamento operatori:', error);
+                console.error('[DEBUG] Errore caricamento operatori:', error);
             }
         }
 
@@ -807,14 +929,13 @@
             try {
                 btn.disabled = true;
                 btn.textContent = '⏳ Registrando...';
+                updateDebugInfo('Registrando nuova pesata...', false, false);
                 
-                // Determina operatore
                 let operatore = operatoreSelezionato;
                 if (!operatore) {
                     operatore = document.getElementById('nuovoOperatore').value.trim().toUpperCase();
                 }
                 
-                // Validazione
                 const campo = document.getElementById('campo').value.trim();
                 const magazzino = document.getElementById('magazzino').value.trim();
                 const pesoLordo = parseFloat(document.getElementById('pesoLordo').value);
@@ -822,23 +943,12 @@
                 const pesoNetto = parseFloat(document.getElementById('pesoNetto').value);
                 const prodotto = document.getElementById('prodotto').value.trim();
                 
-                if (!operatore) {
-                    throw new Error('Seleziona o inserisci un operatore');
-                }
-                if (!campo) {
-                    throw new Error('Inserisci il nome del campo');
-                }
-                if (!magazzino) {
-                    throw new Error('Inserisci il magazzino');
-                }
-                if (!pesoLordo || pesoLordo <= 0) {
-                    throw new Error('Inserisci un peso lordo valido');
-                }
-                if (!prodotto) {
-                    throw new Error('Inserisci il nome del prodotto');
-                }
+                if (!operatore) throw new Error('Seleziona o inserisci un operatore');
+                if (!campo) throw new Error('Inserisci il nome del campo');
+                if (!magazzino) throw new Error('Inserisci il magazzino');
+                if (!pesoLordo || pesoLordo <= 0) throw new Error('Inserisci un peso lordo valido');
+                if (!prodotto) throw new Error('Inserisci il nome del prodotto');
                 
-                // Prepara dati
                 const datiPesata = {
                     operatore: operatore,
                     campo: campo,
@@ -851,7 +961,8 @@
                     action: 'add'
                 };
                 
-                // Invio dati
+                console.log('[DEBUG] Inviando dati:', datiPesata);
+                
                 const response = await fetch(API_URL, {
                     method: 'POST',
                     headers: {
@@ -865,19 +976,22 @@
                 }
                 
                 const result = await response.json();
+                console.log('[DEBUG] Risposta registrazione:', result);
                 
                 if (result.success) {
                     messages.innerHTML = '<div class="success">✅ Pesata registrata con successo!</div>';
+                    updateDebugInfo(`Pesata registrata: ${pesoNetto}kg da ${operatore}`, false, true);
                     resetFormInserimento();
                     aggiornaStats();
-                    caricaOperatori(); // Ricarica operatori per aggiornare la lista
+                    caricaOperatori();
                 } else {
                     throw new Error(result.error || 'Errore durante la registrazione');
                 }
                 
             } catch (error) {
-                console.error('Errore registrazione:', error);
+                console.error('[DEBUG] Errore registrazione:', error);
                 messages.innerHTML = `<div class="error">❌ ${error.message}</div>`;
+                updateDebugInfo(`Errore registrazione: ${error.message}`, true, false);
             } finally {
                 btn.disabled = false;
                 btn.textContent = '📝 REGISTRA PESATA';
@@ -898,7 +1012,6 @@
             document.getElementById('messaggiInserimento').innerHTML = '';
             operatoreSelezionato = '';
             
-            // Nascondi tutti i suggerimenti
             document.querySelectorAll('.field-suggestions').forEach(s => s.classList.remove('show'));
         }
 
@@ -908,6 +1021,7 @@
             
             try {
                 container.innerHTML = '<div class="loading">⏳ Caricamento pesate...</div>';
+                updateDebugInfo('Caricando elenco pesate...', false, false);
                 
                 const response = await fetch(API_URL);
                 
@@ -925,11 +1039,10 @@
                         return;
                     }
                     
-                    // Ordina per timestamp decrescente (più recenti prima)
                     pesate.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
                     
                     let html = '';
-                    pesate.forEach((pesata, index) => {
+                    pesate.forEach((pesata) => {
                         const data = new Date(pesata.timestamp).toLocaleDateString('it-IT');
                         const ora = new Date(pesata.timestamp).toLocaleTimeString('it-IT', {
                             hour: '2-digit',
@@ -950,13 +1063,15 @@
                     });
                     
                     container.innerHTML = html;
+                    updateDebugInfo(`Elenco caricato: ${pesate.length} pesate`, false, true);
                 } else {
                     throw new Error(data.error || 'Errore nel caricamento pesate');
                 }
                 
             } catch (error) {
-                console.error('Errore caricamento pesate:', error);
+                console.error('[DEBUG] Errore caricamento pesate:', error);
                 container.innerHTML = `<div class="error">❌ Errore nel caricamento: ${error.message}</div>`;
+                updateDebugInfo(`Errore elenco: ${error.message}`, true, false);
             }
         }
 
@@ -966,6 +1081,7 @@
             
             try {
                 container.innerHTML = '<div class="loading">⏳ Caricamento report...</div>';
+                updateDebugInfo('Caricando report totali...', false, false);
                 
                 const response = await fetch(API_URL);
                 
@@ -983,10 +1099,8 @@
                         return;
                     }
                     
-                    // Calcola totali
                     const totaleGenerale = pesate.reduce((sum, p) => sum + parseFloat(p.pesoNetto || 0), 0);
                     
-                    // Raggruppa per operatore
                     const perOperatore = {};
                     pesate.forEach(p => {
                         const op = p.operatore || 'N/D';
@@ -997,7 +1111,6 @@
                         perOperatore[op].kg += parseFloat(p.pesoNetto || 0);
                     });
                     
-                    // Raggruppa per prodotto
                     const perProdotto = {};
                     pesate.forEach(p => {
                         const prod = p.prodotto || 'N/D';
@@ -1008,7 +1121,6 @@
                         perProdotto[prod].kg += parseFloat(p.pesoNetto || 0);
                     });
                     
-                    // Raggruppa per campo
                     const perCampo = {};
                     pesate.forEach(p => {
                         const campo = p.campo || 'N/D';
@@ -1065,37 +1177,35 @@
                         });
                     
                     container.innerHTML = html;
+                    updateDebugInfo(`Report generato: ${totaleGenerale.toFixed(1)}kg totali`, false, true);
                 } else {
                     throw new Error(data.error || 'Errore nel caricamento report');
                 }
                 
             } catch (error) {
-                console.error('Errore caricamento totali:', error);
+                console.error('[DEBUG] Errore caricamento totali:', error);
                 container.innerHTML = `<div class="error">❌ Errore nel caricamento: ${error.message}</div>`;
+                updateDebugInfo(`Errore report: ${error.message}`, true, false);
             }
         }
 
         // 📱 APERTURA GOOGLE SHEETS
         function apriGoogleSheets() {
-            // Estrai l'ID dello script dall'URL API
             const scriptMatch = API_URL.match(/\/s\/([a-zA-Z0-9-_]+)\//);
             
             if (scriptMatch && scriptMatch[1]) {
-                // Questo dovrebbe essere sostituito con l'ID effettivo del Google Sheet
-                // Per ora mostra un messaggio all'utente
                 alert('💡 Per aprire Google Sheets:\n\n1. Vai su sheets.google.com\n2. Cerca il foglio "Gestione Pesate Raccolto"\n3. Oppure usa l\'URL che ti ha fornito il tuo amministratore');
             } else {
                 alert('⚠️ URL Google Sheets non configurato. Contatta l\'amministratore.');
             }
         }
 
-        // 🔄 GESTIONE CLICK ESTERNI (chiudi dropdown)
+        // 🔄 GESTIONE CLICK ESTERNI
         document.addEventListener('click', function(event) {
             if (!event.target.closest('.operator-select-container')) {
                 document.getElementById('operatorDropdown').classList.remove('show');
             }
             
-            // Chiudi suggerimenti se click esterno
             if (!event.target.closest('.form-group')) {
                 document.querySelectorAll('.field-suggestions').forEach(s => {
                     s.classList.remove('show');
@@ -1111,12 +1221,9 @@
                     const target = event.target;
                     if (target.tagName === 'INPUT' && target.type === 'number') {
                         event.preventDefault();
-                        // Se è nel peso lordo, vai alla tara
                         if (target.id === 'pesoLordo') {
                             document.getElementById('tara').focus();
-                        }
-                        // Se è nella tara, registra la pesata
-                        else if (target.id === 'tara') {
+                        } else if (target.id === 'tara') {
                             registraPesata();
                         }
                     }
@@ -1124,10 +1231,9 @@
             }
         });
 
-        // 🔧 UTILITY: LOG CONFIGURAZIONE
-        console.log('🚀 App Gestione Raccolto inizializzata');
+        console.log('🚀 App Gestione Raccolto inizializzata con Debug avanzato');
         console.log('📡 API URL:', API_URL);
-        console.log('💡 Per modificare l\'URL, cerca "const API_URL" nel codice sorgente');
+        console.log('💡 Usa il pulsante "Test Connessione" per diagnosticare problemi');
     </script>
 </body>
 </html>
